@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  payroll: 
+  employee: 
+  days_worked: 1.5
+  hours_regular_overtime: 1.5
+  hours_special_overtime: 1.5
+  hours_legal_overtime: 1.5
+  hours_day_off_overtime: 1.5
+  days_legal_holiday: 1
+  days_absent: 1.5
+  minutes_tardy: 1.5
+  adjustment: 1.5
+  other_deduction: 1.5
+
+two:
+  payroll: 
+  employee: 
+  days_worked: 1.5
+  hours_regular_overtime: 1.5
+  hours_special_overtime: 1.5
+  hours_legal_overtime: 1.5
+  hours_day_off_overtime: 1.5
+  days_legal_holiday: 1
+  days_absent: 1.5
+  minutes_tardy: 1.5
+  adjustment: 1.5
+  other_deduction: 1.5

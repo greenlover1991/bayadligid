@@ -1,0 +1,24 @@
+<h1>Listing branches </h1>
+
+<table>
+  <tr>
+    <th>Branch</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @branches.each do |branch| %>
+  <tr>
+    <td><%= branch.name %></td>
+    <td><%= link_to 'Show', [branch.company, branch] %></td>
+    <td><%= link_to 'Edit', edit_company_branch_path(branch.company, branch) %></td>
+    <td><%= link_to 'Destroy', company_branch_path(branch.company, branch), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Branch', new_company_branch_path(params[:company_id]) %>
+<%= link_to 'Back', company_url(params[:company_id]) %>

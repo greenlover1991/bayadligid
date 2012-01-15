@@ -1,0 +1,32 @@
+<%= form_for(@holiday) do |f| %>
+  <% if @holiday.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@holiday.errors.count, "error") %> prohibited this holiday from being saved:</h2>
+
+      <ul>
+      <% @holiday.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :holiday_type %><br />
+    <% Holiday.holiday_types.each do |t| %>
+		  <%= f.radio_button :holiday_type, t %> <%= t %>
+		  <br />
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_holiday %><br />
+    <%= f.date_select :date_of_holiday %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

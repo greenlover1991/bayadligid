@@ -1,0 +1,6 @@
+<h1>Editing payroll for <%= @company.name %></h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', [@company, @payroll] %> |
+<%= link_to 'Back', company_payrolls_path(@company) %>

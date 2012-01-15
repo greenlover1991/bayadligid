@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+		<tr>
+			<td>
+				<h2><%= @payroll.company.name %></h2>
+			</td>
+		</tr>
+		<tr>
+			<td> PAYROLL - Daily Rate</td>
+		</tr>
+		<tr>
+			<td>
+				For the period of <%= @payroll.date_started %> to <%= @payroll.date_ended %>
+			</td>
+		</tr>
+</table>
+
+<table border="1">
+	<tr>
+		<th>Employee</th>
+		<th>Rate</th>
+		<th>Work Days</th>
+		<th>Basic Pay</th>		
+		<th>Regular OT</th>
+		<th>Special OT</th>
+		<th>Legal OT</th>
+		<th>Day Off OT</th>
+		<th>Legal Holidays</th>
+		<th>Days Absent</th>
+		<th>Minutes Tardy</th>
+		<th>Adjustment</th>
+		<th>Other Deduction</th>
+	</tr>
+	<% cur_branch_id = -1 %>
+	<% @payroll_details.each do |pd| %>
+		<tr>
+			<% if cur_branch_id != pd.employee.branch_id %>
+				<% cur_branch_id = pd.employee.branch_id %>
+				<tr>
+					<td colspan="11">
+						<b><%= pd.employee.branch.name %></b>
+					</td>
+				</tr>
+			<% end%>
+			<td>
+					<%= pd.employee.complete_name %>
+			</td>
+			<td><%= pd.days_worked %></td>
+			<td><%= pd.hours_regular_overtime %></td>
+			<td><%= pd.hours_special_overtime %></td>
+			<td><%= pd.hours_legal_overtime %></td>
+			<td><%= pd.hours_day_off_overtime %></td>
+			<td><%= pd.days_legal_holiday %></td>
+			<td><%= pd.days_absent %></td>
+			<td><%= pd.minutes_tardy %></td>
+			<td><%= pd.adjustment %></td>
+			<td><%= pd.other_deduction %></td>
+		</tr>
+	<% end %>	
+
+</table>
+
+<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
+<%= link_to 'Back', company_payrolls_path(@payroll.company) %>
+
+

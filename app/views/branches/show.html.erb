@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Branch:</b>
+  <%= @branch.name %>
+</p>
+
+<p>
+	<b>Employees:</b>
+	<ul>
+	<% for e in @branch.employees %>
+		<li> <%= link_to (e.first_name + " "+ e.last_name), e %> </li>
+	<% end %>
+	</ul>
+</p>
+
+
+<%= link_to 'Edit', edit_company_branch_path(@branch.company,@branch) %> |
+<%= link_to 'Back', company_path(@branch.company) %>

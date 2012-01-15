@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  employee: 
+  loan: 
+  date_started: 2012-01-05
+  date_ended: 2012-01-05
+  days_interval: 1
+  amount_per_interval: 1.5
+  original_amount: 1.5
+  remaining_balance: 1.5
+
+two:
+  employee: 
+  loan: 
+  date_started: 2012-01-05
+  date_ended: 2012-01-05
+  days_interval: 1
+  amount_per_interval: 1.5
+  original_amount: 1.5
+  remaining_balance: 1.5

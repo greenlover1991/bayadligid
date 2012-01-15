@@ -1,0 +1,50 @@
+<h1>Listing employees</h1>
+
+
+	<table border=1>
+		<tr>
+			<th>Branch</th>
+		  <th>Name</th>
+		  <th>Monthly Salary</th>
+		  <th>Address</th>
+		  <th>Landline</th>
+		  <th>Mobile</th>
+		  <th>Birthdate</th>
+		  <th>SSS</th>
+		  <th>Philhealth</th>
+		  <th>Pag-ibig</th>
+		  <th colspan="3"></th>
+		</tr>
+<% cur_company_id = -1 %>
+<% @employees.each do |employee| %>
+
+
+		<% if cur_company_id != employee.branch.company_id %>
+		<% cur_company_id = employee.branch.company_id %>
+			<tr>
+				<td colspan="13"><b><%= employee.branch.company.name %></b></td>
+			</tr>
+		<% end %>
+		<tr>
+			<td><%= employee.branch.name %></td>
+		  <td><%= employee.complete_name %></td>
+		  <td><%= employee.monthly_rate %></td>
+		  <td><%= employee.address %></td>
+		  <td><%= employee.phone_no %></td>
+		  <td><%= employee.mobile_no %></td>
+		  <td><%= employee.birthdate %></td>
+		  <td><%= employee.sss_no %></td>
+		  <td><%= employee.philhealth_no %></td>
+		  <td><%= employee.pagibig_no %></td>
+		  <td><%= link_to 'Show', employee %></td>
+		  <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+		  <td><%= link_to 'Destroy', employee, confirm: 'Are you sure?', method: :delete %></td>
+		</tr>
+
+<% end %>
+	</table>
+
+
+<br />
+
+<%= link_to 'New Employee', new_employee_path %>

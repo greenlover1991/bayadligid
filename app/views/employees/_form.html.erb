@@ -1,0 +1,80 @@
+<%= form_for(@employee) do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @employee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :branch %><br />
+    <%= f.collection_select :branch_id, @available_branches, :id, :pretty_branches %>
+  </div>
+
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name %><br />
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :monthly_salary %><br />
+    <%= f.number_field :monthly_salary, :value=> @employee.new_record? ? 0 : @employee.monthly_rate, :step=>0.1 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_area :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_no %><br />
+    <%= f.text_field :phone_no %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_no %><br />
+    <%= f.text_field :mobile_no %>
+  </div>
+  <div class="field">
+    <%= f.label :birthdate %><br />
+    <%= f.date_select :birthdate, :start_year=>Time.now.year-40, :end_year=>Time.now.year-10 %>
+  </div>
+  <div class="field">
+    <%= f.label :date_hired %><br />
+    <%= f.date_select :date_hired, :start_year=>Time.now.year-15, :end_year=>Time.now.year %>
+  </div>
+  <div class="field">
+    <%= f.label :date_regularized %><br />
+    <%= f.date_select :date_regularized, :start_year=>Time.now.year-15, :end_year=>Time.now.year %>
+  </div>
+  <div class="field">
+    <%= f.label :sss_no %><br />
+    <%= f.text_field :sss_no %>
+  </div>
+  <div class="field">
+    <%= f.label :philhealth_no %><br />
+    <%= f.text_field :philhealth_no %>
+  </div>
+  <div class="field">
+    <%= f.label :pagibig_no %><br />
+    <%= f.text_field :pagibig_no %>
+  </div>
+  <div class="field">
+    <%= f.label :civil_status %><br />
+    <%= f.select :civil_status, Employee.civil_statuses %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

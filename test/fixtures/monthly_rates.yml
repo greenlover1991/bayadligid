@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  employee: 
+  rate: 1.5
+  date_started: 2012-01-05
+  date_ended: 2012-01-05
+
+two:
+  employee: 
+  rate: 1.5
+  date_started: 2012-01-05
+  date_ended: 2012-01-05

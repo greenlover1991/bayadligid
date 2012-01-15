@@ -1,0 +1,117 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+		<tr>
+			<td>
+				<h2><%= @payroll.company.name %></h2>
+			</td>
+		</tr>
+		<tr>
+			<td> PAYROLL - Daily Rate</td>
+		</tr>
+		<tr>
+			<td>
+				For the period of <%= @payroll.date_started %> to <%= @payroll.date_ended %>
+			</td>
+		</tr>
+</table>
+
+<table border="1">
+	<tr>
+		<th>Employee</th>
+		<th>Rate</th>
+		<th>Work Days</th>
+		<th>Basic Pay</th>		
+		<th>Regular OT</th>
+		<th>Regular Amount</th>
+		<th>Special OT</th>
+		<th>Special Amount</th>
+		<th>Legal OT</th>
+		<th>Legal Amount</th>
+		<th>Total OT</th>
+		<th>Total Amount</th>
+		<th>Day Off OT</th>
+		<th>Day Off Amount</th>
+		<th>Legal Holidays</th>
+		<th>Legal Holidays Amount</th>
+		<th>Days Absent</th>
+		<th>Minutes Tardy</th>
+		<th>Minutes Tardy Amount</th>
+		<th>Adjustment</th>
+		<th>Gross Pay</th>
+		<th>SSS</th>
+		<th>PhilHealth</th>
+		<th>HDMF</th>
+		<th>SSS Loan</th>
+		<th>HDMF Loan</th>
+		<th>Philhealth Loan</th>
+		<th>Salary Loan</th>
+		<th>Calamity Loan</th>
+		<th>With Tax</th>
+		<th>Other Deduction</th>
+		<th>Net Pay</th>
+	</tr>
+	<% cur_branch_id = -1 %>
+	<% @payroll_details.each do |pd| %>
+		<tr>
+			<% if cur_branch_id != pd.employee.branch_id %>
+				<% cur_branch_id = pd.employee.branch_id %>
+				<tr>
+					<td colspan="11">
+						<b><%= pd.employee.branch.name %></b>
+					</td>
+				</tr>
+			<% end%>
+			<td>
+					<%= pd.employee.complete_name %>
+			</td>
+			<td><%= pd.rate %></td>
+			<td><%= pd.days_worked %></td>
+			<td><%= pd.basic_pay %></td>
+			<td><%= pd.hours_regular_overtime %></td>
+			<td><%= pd.regular_ot_amount %></td>
+			<td><%= pd.hours_special_overtime %></td>
+			<td><%= pd.special_ot_amount %></td>
+			<td><%= pd.hours_legal_overtime %></td>
+			<td><%= pd.legal_ot_amount %></td>			
+			<td><%= pd.total_overtime_hours %></td>
+			<td><%= pd.total_overtime_amount %></td>			
+			
+			
+			<td><%= pd.hours_day_off_overtime %></td>
+			<td><%= pd.work_on_day_off_amount %></td>
+			
+			<td><%= pd.days_legal_holiday %></td>
+			<td><%= pd.legal_holiday_amount %></td>
+			
+			<td><%= pd.days_absent %></td>
+			<td><%= pd.minutes_tardy %></td>
+			<td><%= pd.tardy_amount %></td>
+			
+			<td><%= pd.adjustment %></td>
+			<td><%= pd.gross_pay %></td>
+			
+			<td><%= pd.sss_contribution %></td>
+			<td><%= pd.philhealth_contribution %></td>
+			<td><%= pd.hdmf_contribution %></td>
+			
+			<td><%= pd.sss_loan %></td>
+			<td><%= pd.hdmf_loan %></td>
+			<td><%= pd.philhealth_loan %></td>
+			<td><%= pd.salary_loan %></td>
+			<td><%= pd.calamity_loan %></td>
+
+			<td><%= pd.with_tax %></td>
+			
+			<td><%= pd.other_deduction %></td>
+			
+			<td><%= pd.net_pay %></td>
+		</tr>
+	<% end %>	
+
+</table>
+
+<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
+<%= link_to 'Back', company_payrolls_path(@payroll.company) %>
+
+

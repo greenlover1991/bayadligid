@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  applied_loan: 
+  amount: 1.5
+  date_applied: 2012-01-14
+
+two:
+  applied_loan: 
+  amount: 1.5
+  date_applied: 2012-01-14

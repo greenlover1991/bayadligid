@@ -1,0 +1,46 @@
+<%= form_for([@applied_loan.employee,@applied_loan]) do |f| %>
+  <% if @applied_loan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@applied_loan.errors.count, "error") %> prohibited this applied_loan from being saved:</h2>
+
+      <ul>
+      <% @applied_loan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <%= f.hidden_field :employee_id, :value=>params[:employee_id] %>
+  <div class="field">
+    <%= f.label :loan %><br />
+    <%= f.collection_select :loan_id, Loan.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_started %><br />
+    <%= f.date_select :date_started %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :interval_type %>
+    <% AppliedLoan.interval_types.each do |t| %>
+	    <br />
+	    <%= f.radio_button :interval_type, t %> <%= t %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :original_amount, "Total Amount" %><br />
+    <%= f.number_field :original_amount, :step=>0.5 %>
+  </div>
+  <div class="field">
+    <%= f.label :amount_per_interval %><br />
+    <%= f.number_field :amount_per_interval, :step=>0.5 %>
+  </div>
+
+  
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
