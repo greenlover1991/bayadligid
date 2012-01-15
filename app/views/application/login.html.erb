@@ -1,8 +1,8 @@
-
+	<p id="notice"><%= notice %></p>
 	<%= form_for @user, :url=>{:controller => "application", :action => "authenticating"} do |f| %>
 	  <div class="field">
-      <%= f.label :user_name %><br />
-      <%= f.text_field :user_name %>
+      <%= f.label :login %><br />
+      <%= f.text_field :login %>
     </div>
     <div class="field">
       <%= f.label :password %><br />
@@ -13,10 +13,3 @@
     </div>
 	<% end %>
 	
-	<p>
-	  Default username is: firstLetterofFirstNamelastName
-	  <br/>
-	  Default password is: firstLetterofFirstNamelastName_helloworld
- 	  <br/>
-	  If you were registered, that is. :D
-	</p>

@@ -7,9 +7,16 @@ class Branch < ActiveRecord::Base
   	self.company.name + " - " + self.name
   end
   
-  def self.available_branches
-  	# include user validation later
-  	Branch.joins(:company).order("'companies'.'name', 'branches'.'name'")
+  def self.available_branches(user_id)
+  	branches = []
+  	b = []
+		User.find(user_id).companies.each do |c|
+			branches << c.branches.order("'companies.name', 'branches.name'")
+		end
+		branches.flatten!
+		branches.each {|br| b << br}
+		
+		return b
   end
 end
 

@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   
   def index
     redirect_to '/login' unless session[:user_id]
-    
-    @companies = User.find(session[:user_id]).companies
   end
   
   def login
@@ -17,19 +15,15 @@ class ApplicationController < ActionController::Base
   def authenticating
 		if (user = User.login(User.new(params[:user])))
 		  session[:user_id] = user.id
-		  session[:user_screen_name] = user.screen_name
-		  assign_active_task_ledger_id
 		  redirect_to '/'  
 		else
+			flash[:notice] = "User was not found or password is incorrect"
 		  redirect_to '/login'
 		end
 	end
   
   def logout
     session[:user_id] = nil
-    session[:user_screen_name] = nil
-    session[:user_name] = nil
-    session[:task_ledger_id] = nil
     redirect_to '/login'
   end
   

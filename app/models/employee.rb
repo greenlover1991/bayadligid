@@ -3,7 +3,7 @@ class Employee < ActiveRecord::Base
   has_one :company, :through=>:branch
   has_many :payroll_details, :dependent=>:destroy
   has_many :applied_loans, :dependent=>:destroy
-  
+  has_many :users, :through=>:company
   
   validates_presence_of :first_name, :middle_name, :last_name, :status, :branch
   #validates_uniqueness_of :sss_no, :philhealth_no, :pagibig_no

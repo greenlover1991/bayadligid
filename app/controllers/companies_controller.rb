@@ -2,7 +2,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
+    @companies = Company.joins(:users).where('users.id=?', session[:user_id])
 
     respond_to do |format|
       format.html # index.html.erb
