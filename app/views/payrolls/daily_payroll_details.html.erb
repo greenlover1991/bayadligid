@@ -1,64 +1,134 @@
-<p id="notice"><%= notice %></p>
-
 <table>
 		<tr>
 			<td>
-				<h2><%= @payroll.company.name %></h2>
+				<h2><%= @payroll.company.name.upcase %></h2>
 			</td>
 		</tr>
 		<tr>
-			<td> PAYROLL - Daily Rate</td>
+			<td> DETAILS of OVERTIME - Daily Rate</td>
 		</tr>
 		<tr>
 			<td>
-				For the period of <%= @payroll.date_started %> to <%= @payroll.date_ended %>
+				For the period of <%= pretty_print_date(@payroll.date_started) %> to <%= pretty_print_date(@payroll.date_ended) %>
 			</td>
 		</tr>
 </table>
 
 <table border="1">
 	<tr>
-		<th>Employee</th>
-		<th>Rate</th>
-		<th>Work Days</th>
-		<th>Basic Pay</th>		
-		<th>Regular OT</th>
-		<th>Special OT</th>
-		<th>Legal OT</th>
-		<th>Day Off OT</th>
-		<th>Legal Holidays</th>
-		<th>Days Absent</th>
-		<th>Minutes Tardy</th>
-		<th>Adjustment</th>
-		<th>Other Deduction</th>
+		<th rowspan="2">NAME OF EMPLOYEE</th>
+		<th rowspan="2">Daily Rate</th>
+		<th colspan="2">REGULAR</th>
+		<th colspan="2">SPECIAL</th>
+		<th colspan="2">LEGAL</th>
+		<th colspan="2">TOTAL</th>
+	</tr>
+	<tr>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
 	</tr>
 	<% cur_branch_id = -1 %>
+	<% sum = Array.new(9,0) %>
+	<% total_sum = Array.new(9,0) %>
+	<% i = 0 %>
+	<% last_branch_name = "" %>
 	<% @payroll_details.each do |pd| %>
 		<tr>
 			<% if cur_branch_id != pd.employee.branch_id %>
+				<% if i>0 %>
+					<tr>
+						<td colspan="2">
+							Total <%= last_branch_name %>
+						</td>
+						
+						<td><%= "%.2f" % sum[1] %></td>
+						<td><%= "%.2f" % sum[2] %></td>
+						<td><%= "%.2f" % sum[3] %></td>
+						<td><%= "%.2f" % sum[4] %></td>			
+			
+						<td><%= "%.2f" % sum[5] %></td>
+						<td><%= "%.2f" % sum[6] %></td>
+			
+						<td><%= "%.2f" % sum[7] %></td>
+						<td><%= "%.2f" % sum[8] %></td>
+			
+					</tr>
+				<% end %>
+				<% i += 1 %>
+				<% count = 0 %>
+				<% while count < sum.length %>
+					<% total_sum[count] += sum[count] %>
+					<%	count += 1 %>
+				<% end %>
+				<% sum.fill(0) %>
 				<% cur_branch_id = pd.employee.branch_id %>
 				<tr>
-					<td colspan="11">
+					<td colspan="10">
 						<b><%= pd.employee.branch.name %></b>
+						<% last_branch_name = pd.employee.branch.name %>
 					</td>
 				</tr>
 			<% end%>
 			<td>
-					<%= pd.employee.complete_name %>
+					<%= link_to pd.employee.complete_name, payslip_company_payroll_path(params[:company_id], params[:id]) + "?employee_id=#{pd.employee_id}" %>
 			</td>
-			<td><%= pd.days_worked %></td>
-			<td><%= pd.hours_regular_overtime %></td>
-			<td><%= pd.hours_special_overtime %></td>
-			<td><%= pd.hours_legal_overtime %></td>
-			<td><%= pd.hours_day_off_overtime %></td>
-			<td><%= pd.days_legal_holiday %></td>
-			<td><%= pd.days_absent %></td>
-			<td><%= pd.minutes_tardy %></td>
-			<td><%= pd.adjustment %></td>
-			<td><%= pd.other_deduction %></td>
+			<td><%= "%.2f" % pd.rate %><% sum[0] += pd.rate %></td>
+			<td><%= "%.2f" % pd.hours_regular_overtime %><% sum[1] += pd.hours_regular_overtime %></td>
+			<td><%= "%.2f" % pd.regular_ot_amount %><% sum[2] += pd.regular_ot_amount %></td>
+			<td><%= "%.2f" % pd.hours_special_overtime %><% sum[3] += pd.hours_special_overtime %></td>
+			<td><%= "%.2f" % pd.special_ot_amount %><% sum[4] += pd.special_ot_amount %></td>			
+			<td><%= "%.2f" % pd.hours_legal_overtime %><% sum[5] += pd.hours_legal_overtime %></td>
+			<td><%= "%.2f" % pd.legal_ot_amount %><% sum[6] += pd.legal_ot_amount %></td>
+			<td><%= "%.2f" % pd.total_overtime_hours %><% sum[7] += pd.total_overtime_hours %></td>
+			<td><%= "%.2f" % pd.total_overtime_amount %><% sum[8] += pd.total_overtime_amount %></td>
 		</tr>
 	<% end %>	
+	<tr>
+		<td colspan="2">
+			Total <%= last_branch_name %>
+		</td>
+		
+		<td><%= "%.2f" % sum[1] %></td>
+		<td><%= "%.2f" % sum[2] %></td>
+		<td><%= "%.2f" % sum[3] %></td>
+		<td><%= "%.2f" % sum[4] %></td>			
 
+		<td><%= "%.2f" % sum[5] %></td>
+		<td><%= "%.2f" % sum[6] %></td>
+
+		<td><%= "%.2f" % sum[7] %></td>
+		<td><%= "%.2f" % sum[8] %></td>
+
+		<% count = 0 %>
+		<% while count < sum.length %>
+			<% total_sum[count] += sum[count] %>
+			<%	count += 1 %>
+		<% end %>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			Grand Total
+		</td>
+		<td><%= "%.2f" % total_sum[1] %></td>
+		<td><%= "%.2f" % total_sum[2] %></td>
+		<td><%= "%.2f" % total_sum[3] %></td>
+		<td><%= "%.2f" % total_sum[4] %></td>			
+
+		<td><%= "%.2f" % total_sum[5] %></td>
+		<td><%= "%.2f" % total_sum[6] %></td>
+
+		<td><%= "%.2f" % total_sum[7] %></td>
+		<td><%= "%.2f" % total_sum[8] %></td>
+
+	
+	</tr>
 </table>
 
 <%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |

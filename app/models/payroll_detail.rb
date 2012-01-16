@@ -9,6 +9,8 @@ class PayrollDetail < ActiveRecord::Base
   @@SSS_TAX_RATE = 0.033
   @@PHILHEALTH_TAX_RATE = 0.0125
   @@HDMF_TAX_RATE = 0.02 
+  @@WITHHOLDING_TAX_RATE = 0.0453
+  
   
   before_save :update_loans_amount
   
@@ -27,8 +29,18 @@ class PayrollDetail < ActiveRecord::Base
 		return @daily_rate
   end
   
+  def half_monthly_rate
+  	rate * 314 / 24 
+  end
+  
   def basic_pay
-  	@daily_rate * days_worked
+  	r = 0 
+  	if(@daily_rate.nil?)
+  		r = rate
+  	else
+  		r = @daily_rate
+  	end
+	  return r * days_worked
   end
   
   def total_overtime_hours
@@ -60,12 +72,16 @@ class PayrollDetail < ActiveRecord::Base
 	 	days_legal_holiday * @daily_rate
   end
   
+  def absent_amount
+  	days_absent * @daily_rate
+  end
+  
   def tardy_amount
   	(1.0 - ((480.0 - minutes_tardy) / 480) ) * @daily_rate
   end
   
   def gross_pay
-  	basic_pay + total_overtime_amount + work_on_day_off_amount + adjustment - tardy_amount
+  	basic_pay + total_overtime_amount + work_on_day_off_amount + adjustment - absent_amount - tardy_amount
   end
   
   def sss_contribution
@@ -81,11 +97,15 @@ class PayrollDetail < ActiveRecord::Base
   end
   
   def with_tax
-  	0
+  	gross_pay * @@WITHHOLDING_TAX_RATE
+  end
+  
+  def total_deduction
+  	sss_contribution + philhealth_contribution + hdmf_contribution + sss_loan + hdmf_loan + philhealth_loan + salary_loan + calamity_loan + with_tax + other_deduction
   end
   
   def net_pay
-  	gross_pay - sss_contribution - philhealth_contribution - hdmf_contribution - sss_loan - hdmf_loan - philhealth_loan - salary_loan - calamity_loan - with_tax - other_deduction
+  	gross_pay - total_deduction
   end
   
   private

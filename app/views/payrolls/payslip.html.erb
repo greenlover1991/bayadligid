@@ -1,67 +1,177 @@
-<p id="notice"><%= notice %></p>
-
 <table>
 		<tr>
 			<td>
-				<h2><%= @payroll.company.name %></h2>
+				<h2><%= @payroll_detail.payroll.company.name.upcase %></h2>
 			</td>
 		</tr>
 		<tr>
-			<td> PAYROLL - Daily Rate</td>
-		</tr>
-		<tr>
 			<td>
-				For the period of <%= @payroll.date_started %> to <%= @payroll.date_ended %>
+				Payslip (<%= @payroll_detail.payroll.date_started %> - <%= @payroll_detail.payroll.date_ended %>)
 			</td>
 		</tr>
 </table>
 
-<table border="1">
+<table>
+	
 	<tr>
-		<th>Employee</th>
-		<th>Rate</th>
-		<th>Work Days</th>
-		<th>Basic Pay</th>		
-		<th>Regular OT</th>
-		<th>Special OT</th>
-		<th>Legal OT</th>
-		<th>Day Off OT</th>
-		<th>Legal Holidays</th>
-		<th>Days Absent</th>
-		<th>Minutes Tardy</th>
-		<th>Adjustment</th>
-		<th>Other Deduction</th>
-	</tr>
-	<% cur_branch_id = -1 %>
-	<% @payroll_details.each do |pd| %>
-		<tr>
-			<% if cur_branch_id != pd.employee.branch_id %>
-				<% cur_branch_id = pd.employee.branch_id %>
+		<td>
+			<table border="1">
+				<tr> 
+					<td> <%= @payroll_detail.employee.last_name %> </td>
+					<td> <%= @payroll_detail.employee.first_name %> </td> 
+					<td> <%= @payroll_detail.employee.middle_name %> </td>
+				</tr>
 				<tr>
-					<td colspan="11">
-						<b><%= pd.employee.branch.name %></b>
+					<td>EARNINGs:</td>
+					<td>Basic</td>
+					<td><%= "%.2f" % @payroll_detail.basic_pay %></td>
+				</tr>
+				<tr>
+					<td rowspan="8">&nbsp</td>
+					<td>Regular OT</td>
+					<td><%= "%.2f" % @payroll_detail.regular_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>Special OT</td>
+					<td><%= "%.2f" % @payroll_detail.special_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>Legal OT</td>
+					<td><%= "%.2f" % @payroll_detail.legal_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>DayOff OT</td>
+					<td><%= "%.2f" % @payroll_detail.work_on_day_off_amount %></td>
+				</tr>
+				<tr>
+					<td>Adjustment</td>
+					<td><%= "%.2f" % @payroll_detail.adjustment %></td>
+				</tr>	
+				<tr>
+					<td>Absent</td>
+					<td><%= "%.2f" % @payroll_detail.absent_amount %></td>
+				</tr>
+				<tr>
+					<td>Tardy</td>
+					<td><%= "%.2f" % @payroll_detail.tardy_amount %></td>
+				</tr>
+				<tr>
+					<td>Gross Pay</td>
+					<td><%= "%.2f" % @payroll_detail.gross_pay %></td>
+				</tr>
+
+				<tr>
+					<td>LESS:</td>
+					<td>Tax Withheld</td>
+					<td><%= "%.2f" % @payroll_detail.with_tax %></td>				
+				</tr>
+				<tr>
+					<td rowspan="11">&nbsp</td>
+					<td>SSS</td>
+					<td><%= "%.2f" % @payroll_detail.sss_contribution %></td>				
+				</tr>
+				<tr>
+					<td>HDMF</td>
+					<td><%= "%.2f" % @payroll_detail.hdmf_contribution %></td>				
+				</tr>
+				<tr>
+					<td>PhilHealth</td>
+					<td><%= "%.2f" % @payroll_detail.philhealth_contribution %></td>				
+				</tr>
+				<tr>
+					<td>SSS Loan</td>
+					<td><%= "%.2f" % @payroll_detail.sss_loan %></td>				
+				</tr>			
+				<tr>
+					<td>HDMF Loan</td>
+					<td><%= "%.2f" % @payroll_detail.hdmf_loan %></td>				
+				</tr>			
+				<tr>
+					<td>PhilHealth Loan</td>
+					<td><%= "%.2f" % @payroll_detail.philhealth_loan %></td>				
+				</tr>					
+				<tr>
+					<td>Salary Loan</td>
+					<td><%= "%.2f" % @payroll_detail.salary_loan %></td>				
+				</tr>			
+				<tr>
+					<td>Calamity Loan</td>
+					<td><%= "%.2f" % @payroll_detail.calamity_loan %></td>				
+				</tr>				
+				<tr>
+					<td>Other Deduction</td>
+					<td><%= "%.2f" % @payroll_detail.other_deduction %></td>				
+				</tr>
+				<tr>
+					<td>Total Deduction</td>
+					<td><%= "%.2f" % @payroll_detail.total_deduction %></td>				
+				</tr>								
+
+				<tr>
+					<td>Net Pay</td>
+					<td><%= "%.2f" % @payroll_detail.net_pay %></td>				
+				</tr>				
+			</table>
+		</td>
+		<td>
+			<table style="text-align: center;">
+				<tr>
+					<td colspan="3"><%= @payroll_detail.payroll.company.name.upcase %></td>
+				</tr>
+
+				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="3">&nbsp</td></tr>
+												
+																												
+				<tr>
+					<td colspan="3">
+						I hereby acknowledge receipt of my
 					</td>
 				</tr>
-			<% end%>
-			<td>
-					<%= pd.employee.complete_name %>
-			</td>
-			<td><%= pd.days_worked %></td>
-			<td><%= pd.hours_regular_overtime %></td>
-			<td><%= pd.hours_special_overtime %></td>
-			<td><%= pd.hours_legal_overtime %></td>
-			<td><%= pd.hours_day_off_overtime %></td>
-			<td><%= pd.days_legal_holiday %></td>
-			<td><%= pd.days_absent %></td>
-			<td><%= pd.minutes_tardy %></td>
-			<td><%= pd.adjustment %></td>
-			<td><%= pd.other_deduction %></td>
-		</tr>
-	<% end %>	
+				<tr>
+					<td colspan="3">
+						salary stated herein for the period 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<%= pretty_print_date(@payroll_detail.payroll.date_started) %> to <%= pretty_print_date(@payroll_detail.payroll.date_ended) %>.
+					</td>
+				</tr>
+				
+				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="3">&nbsp</td></tr>
+				
+				<tr>
+					<td colspan="3">
+						<p>
+							Net Pay: <%= "%.2f" % @payroll_detail.net_pay %>
+						</p>
+					</td>
+				</tr>
+			
+				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="3">&nbsp</td></tr>
 
+				
+				<tr>
+					<td  colspan="3"> _________________________________________________________________</td>
+				</tr>
+				<tr>
+					<td><%= @payroll_detail.employee.last_name %></td>
+					<td><%= @payroll_detail.employee.first_name %></td>
+					<td><%= @payroll_detail.employee.middle_name %></td>					
+				</tr>
+				<tr><td colspan="3">&nbsp</td></tr>
+			</table>
+		</td>
+	</tr>
 </table>
 
-<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
-<%= link_to 'Back', company_payrolls_path(@payroll.company) %>
+
+<%= link_to 'Edit', edit_company_payroll_path(@payroll_detail.payroll.company, @payroll_detail.payroll) %> |
+<%= link_to 'Back', company_payrolls_path(@payroll_detail.payroll.company) %>
 
 

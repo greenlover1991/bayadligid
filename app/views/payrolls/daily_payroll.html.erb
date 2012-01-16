@@ -1,7 +1,7 @@
 <table>
 		<tr>
 			<td>
-				<h2><%= @payroll.company.name %></h2>
+				<h2><%= @payroll.company.name.upcase %></h2>
 			</td>
 		</tr>
 		<tr>
@@ -24,7 +24,7 @@
 		<th colspan="2">Work on Day-Off</th>
 		<th rowspan="2">Legal Hol</th>
 		<th rowspan="2">Legal Hol Amount</th>
-		<th rowspan="2">Days Absent</th>
+		<th colspan="2">Absent</th>
 		<th colspan="2">Undertime/Tardy</th>
 		<th rowspan="2">Adjustment</th>
 		<th rowspan="2">Gross Pay</th>
@@ -45,60 +45,202 @@
 		<th>Amount</th>
 		<th>Hours</th>
 		<th>Amount</th>
+		<th>Days</th>
+		<th>Amount</th>
 		<th>Mins</th>
 		<th>Amount</th>
 	</tr>
 	<% cur_branch_id = -1 %>
+	<% sum = Array.new(26,0) %>
+	<% total_sum = Array.new(26,0) %>
+	<% i = 0 %>
+	<% last_branch_name = "" %>
 	<% @payroll_details.each do |pd| %>
 		<tr>
 			<% if cur_branch_id != pd.employee.branch_id %>
+				<% if i>0 %>
+					<tr>
+						<td colspan="2">
+							Total <%= last_branch_name %>
+						</td>
+						
+						<td><%= "%.2f" % sum[1] %></td>
+						<td><%= "%.2f" % sum[2] %></td>
+						<td><%= "%.2f" % sum[3] %></td>
+						<td><%= "%.2f" % sum[4] %></td>			
+			
+						<td><%= "%.2f" % sum[5] %></td>
+						<td><%= "%.2f" % sum[6] %></td>
+			
+						<td><%= "%.2f" % sum[7] %></td>
+						<td><%= "%.2f" % sum[8] %></td>
+			
+						<td><%= "%.2f" % sum[9] %></td>
+						<td><%= "%.2f" % sum[10] %></td>
+						<td><%= "%.2f" % sum[11] %></td>
+			
+						<td><%= "%.2f" % sum[12] %></td>
+						<td><%= "%.2f" % sum[13] %></td>
+			
+						<td><%= "%.2f" % sum[14] %></td>
+						<td><%= "%.2f" % sum[15] %></td>
+						<td><%= "%.2f" % sum[16] %></td>
+			
+						<td><%= "%.2f" % sum[17] %></td>
+						<td><%= "%.2f" % sum[18] %></td>
+						<td><%= "%.2f" % sum[19] %></td>
+						<td><%= "%.2f" % sum[20] %></td>
+						<td><%= "%.2f" % sum[21] %></td>
+
+						<td><%= "%.2f" % sum[22] %></td>
+			
+						<td><%= "%.2f" % sum[23] %></td>
+			
+						<td><%= "%.2f" % sum[24] %></td>
+						<td><%= "%.2f" % sum[25] %></td>
+					</tr>
+				<% end %>
+				<% i += 1 %>
+				<% count = 0 %>
+				<% while count < sum.length %>
+					<% total_sum[count] += sum[count] %>
+					<%	count += 1 %>
+				<% end %>
+				<% sum.fill(0) %>
 				<% cur_branch_id = pd.employee.branch_id %>
 				<tr>
-					<td colspan="26">
+					<td colspan="27">
 						<b><%= pd.employee.branch.name %></b>
+						<% last_branch_name = pd.employee.branch.name %>
 					</td>
 				</tr>
 			<% end%>
 			<td>
-					<%= link_to pd.employee.complete_name, pd.employee %>
+					<%= link_to pd.employee.complete_name, payslip_company_payroll_path(params[:company_id], params[:id]) + "?employee_id=#{pd.employee_id}" %>
 			</td>
-			<td><%= "%.2f" % pd.rate %></td>
-			<td><%= "%.2f" % pd.days_worked %></td>
-			<td><%= "%.2f" % pd.basic_pay %></td>
-			<td><%= "%.2f" % pd.total_overtime_hours %></td>
-			<td><%= "%.2f" % pd.total_overtime_amount %></td>			
+			<td><%= "%.2f" % pd.rate %><% sum[0] += pd.rate %></td>
+			<td><%= "%.2f" % pd.days_worked %><% sum[1] += pd.days_worked %></td>
+			<td><%= "%.2f" % pd.basic_pay %><% sum[2] += pd.basic_pay %></td>
+			<td><%= "%.2f" % pd.total_overtime_hours %><% sum[3] += pd.total_overtime_hours %></td>
+			<td><%= "%.2f" % pd.total_overtime_amount %><% sum[4] += pd.total_overtime_amount %></td>			
 			
-			<td><%= "%.2f" % pd.hours_day_off_overtime %></td>
-			<td><%= "%.2f" % pd.work_on_day_off_amount %></td>
+			<td><%= "%.2f" % pd.hours_day_off_overtime %><% sum[5] += pd.hours_day_off_overtime %></td>
+			<td><%= "%.2f" % pd.work_on_day_off_amount %><% sum[6] += pd.work_on_day_off_amount %></td>
 			
-			<td><%= "%.2f" % pd.days_legal_holiday %></td>
-			<td><%= "%.2f" % pd.legal_holiday_amount %></td>
+			<td><%= "%.2f" % pd.days_legal_holiday %><% sum[7] += pd.days_legal_holiday %></td>
+			<td><%= "%.2f" % pd.legal_holiday_amount %><% sum[8] += pd.legal_holiday_amount %></td>
 			
-			<td><%= "%.2f" % pd.days_absent %></td>
-			<td><%= "%.2f" % pd.minutes_tardy %></td>
-			<td><%= "%.2f" % pd.tardy_amount %></td>
+			<td><%= "%.2f" % pd.days_absent %><% sum[9] += pd.days_absent %></td>
+			<td><%= "%.2f" % pd.absent_amount %><% sum[10] += pd.absent_amount %></td>
+			<td><%= "%.2f" % pd.minutes_tardy %><% sum[11] += pd.minutes_tardy %></td>
+			<td><%= "%.2f" % pd.tardy_amount %><% sum[12] += pd.tardy_amount %></td>
 			
-			<td><%= "%.2f" % pd.adjustment %></td>
-			<td><%= "%.2f" % pd.gross_pay %></td>
+			<td><%= "%.2f" % pd.adjustment %><% sum[13] += pd.adjustment %></td>
+			<td><%= "%.2f" % pd.gross_pay %><% sum[14] += pd.gross_pay %></td>
 			
-			<td><%= "%.2f" % pd.sss_contribution %></td>
-			<td><%= "%.2f" % pd.philhealth_contribution %></td>
-			<td><%= "%.2f" % pd.hdmf_contribution %></td>
+			<td><%= "%.2f" % pd.sss_contribution %><% sum[15] += pd.sss_contribution %></td>
+			<td><%= "%.2f" % pd.philhealth_contribution %><% sum[16] += pd.philhealth_contribution %></td>
+			<td><%= "%.2f" % pd.hdmf_contribution %><% sum[17] += pd.hdmf_contribution %></td>
 			
-			<td><%= "%.2f" % pd.sss_loan %></td>
-			<td><%= "%.2f" % pd.philhealth_loan %></td>
-			<td><%= "%.2f" % pd.hdmf_loan %></td>
-			<td><%= "%.2f" % pd.salary_loan %></td>
-			<td><%= "%.2f" % pd.calamity_loan %></td>
+			<td><%= "%.2f" % pd.sss_loan %><% sum[18] += pd.sss_loan %></td>
+			<td><%= "%.2f" % pd.philhealth_loan %><% sum[19] += pd.philhealth_loan %></td>
+			<td><%= "%.2f" % pd.hdmf_loan %><% sum[20] += pd.hdmf_loan %></td>
+			<td><%= "%.2f" % pd.salary_loan %><% sum[21] += pd.salary_loan %></td>
+			<td><%= "%.2f" % pd.calamity_loan %><% sum[22] += pd.calamity_loan %></td>
 
-			<td><%= "%.2f" % pd.with_tax %></td>
+			<td><%= "%.2f" % pd.with_tax %><% sum[23] += pd.with_tax %></td>
 			
-			<td><%= "%.2f" % pd.other_deduction %></td>
+			<td><%= "%.2f" % pd.other_deduction %><% sum[24] += pd.other_deduction %></td>
 			
-			<td><%= "%.2f" % pd.net_pay %></td>
+			<td><%= "%.2f" % pd.net_pay %><% sum[25] += pd.net_pay %></td>
 		</tr>
 	<% end %>	
+	<tr>
+		<td colspan="2">
+			Total <%= last_branch_name %>
+		</td>
+		
+		<td><%= "%.2f" % sum[1] %></td>
+		<td><%= "%.2f" % sum[2] %></td>
+		<td><%= "%.2f" % sum[3] %></td>
+		<td><%= "%.2f" % sum[4] %></td>			
 
+		<td><%= "%.2f" % sum[5] %></td>
+		<td><%= "%.2f" % sum[6] %></td>
+
+		<td><%= "%.2f" % sum[7] %></td>
+		<td><%= "%.2f" % sum[8] %></td>
+
+		<td><%= "%.2f" % sum[9] %></td>
+		<td><%= "%.2f" % sum[10] %></td>
+		<td><%= "%.2f" % sum[11] %></td>
+
+		<td><%= "%.2f" % sum[12] %></td>
+		<td><%= "%.2f" % sum[13] %></td>
+
+		<td><%= "%.2f" % sum[14] %></td>
+		<td><%= "%.2f" % sum[15] %></td>
+		<td><%= "%.2f" % sum[16] %></td>
+
+		<td><%= "%.2f" % sum[17] %></td>
+		<td><%= "%.2f" % sum[18] %></td>
+		<td><%= "%.2f" % sum[19] %></td>
+		<td><%= "%.2f" % sum[20] %></td>
+		<td><%= "%.2f" % sum[21] %></td>
+
+		<td><%= "%.2f" % sum[22] %></td>
+
+		<td><%= "%.2f" % sum[23] %></td>
+
+		<td><%= "%.2f" % sum[24] %></td>
+		<td><%= "%.2f" % sum[25] %></td>
+		<% count = 0 %>
+		<% while count < sum.length %>
+			<% total_sum[count] += sum[count] %>
+			<%	count += 1 %>
+		<% end %>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			Grand Total
+		</td>
+		
+		<td><%= "%.2f" % total_sum[1] %></td>
+		<td><%= "%.2f" % total_sum[2] %></td>
+		<td><%= "%.2f" % total_sum[3] %></td>
+		<td><%= "%.2f" % total_sum[4] %></td>			
+
+		<td><%= "%.2f" % total_sum[5] %></td>
+		<td><%= "%.2f" % total_sum[6] %></td>
+
+		<td><%= "%.2f" % total_sum[7] %></td>
+		<td><%= "%.2f" % total_sum[8] %></td>
+
+		<td><%= "%.2f" % total_sum[9] %></td>
+		<td><%= "%.2f" % total_sum[10] %></td>
+		<td><%= "%.2f" % total_sum[11] %></td>
+
+		<td><%= "%.2f" % total_sum[12] %></td>
+		<td><%= "%.2f" % total_sum[13] %></td>
+
+		<td><%= "%.2f" % total_sum[14] %></td>
+		<td><%= "%.2f" % total_sum[15] %></td>
+		<td><%= "%.2f" % total_sum[16] %></td>
+
+		<td><%= "%.2f" % total_sum[17] %></td>
+		<td><%= "%.2f" % total_sum[18] %></td>
+		<td><%= "%.2f" % total_sum[19] %></td>
+		<td><%= "%.2f" % total_sum[20] %></td>
+		<td><%= "%.2f" % total_sum[21] %></td>
+
+		<td><%= "%.2f" % total_sum[22] %></td>
+
+		<td><%= "%.2f" % total_sum[23] %></td>
+
+		<td><%= "%.2f" % total_sum[24] %></td>
+		<td><%= "%.2f" % total_sum[25] %></td>
+	</tr>
 </table>
 
 <%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |

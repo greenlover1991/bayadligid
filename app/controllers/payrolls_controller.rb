@@ -14,9 +14,9 @@ class PayrollsController < ApplicationController
   # GET /payrolls/1
   # GET /payrolls/1.json
   def show
-    @payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-	@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
-	respond_to do |format|
+		@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
+		@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+		respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @payroll }
     end
@@ -54,7 +54,7 @@ class PayrollsController < ApplicationController
       		pds << pd
       	end
       	PayrollDetail.create(pds)
-        format.html { redirect_to [@payroll.company,@payroll], notice: 'Payroll was successfully created.' }
+        format.html { redirect_to daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id), notice: 'Payroll was successfully created.' }
         format.json { render json: @payroll, status: :created, location: @payroll }
       else
         format.html { render action: "new" }
@@ -79,7 +79,7 @@ class PayrollsController < ApplicationController
       		pd_values << pd
       	end
       	PayrollDetail.update(pd_ids, pd_values)
-        format.html { redirect_to [@payroll.company, @payroll], notice: 'Payroll was successfully updated.' }
+        format.html { redirect_to daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id), notice: 'Payroll was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -101,32 +101,38 @@ class PayrollsController < ApplicationController
   end
   
   def daily_payroll
-	init_report
+		init_report
   end
   
   def daily_payroll_details
-	init_report
+		init_report
   end
   
   def monthly_payroll
-	init_report
+		init_report
   end
   
   def monthly_payroll_details
-	init_report
+		init_report
   end
   
   def prooflist
-	init_report
+		init_report
+  end
+  
+  def payslip
+  	redirect_to '/' if params[:employee_id].nil?
+  	
+  	@payroll_detail = PayrollDetail.find_by_payroll_id_and_employee_id(params[:id], params[:employee_id])
   end
   
   private
-	def init_report
-		@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-		@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
-		respond_to do |format|
-		  format.html 
-		  format.json { render json: @payroll }
+		def init_report
+			@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
+			@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+			respond_to do |format|
+				format.html 
+				format.json { render json: @payroll }
+			end
 		end
-	end
 end
