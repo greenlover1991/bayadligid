@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%= render 'application/header' %>
-	<%= render 'holidays/sidebar' if params[:controller]=='application' %>
+	<%= render 'holidays/sidebar' %>
 	<div id="content" style="position:relative; float:left; background-color:#CCCCCC;">
 		<%= yield %>
 	</div>
