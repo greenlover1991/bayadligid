@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
- 	before_filter :require_login, :except=> [:login,:authenticating]
-  
+  before_filter :require_login, :except=> [:login,:authenticating]
   def index
     redirect_to '/login' unless session[:user_id]
+	@companies = User.find(session[:user_id]).companies
   end
   
   def login
@@ -31,5 +31,6 @@ class ApplicationController < ActionController::Base
     def require_login
       redirect_to '/login' unless session[:user_id]
     end
- 
+	
+	
 end

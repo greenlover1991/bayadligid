@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(:version => 20120115113336) do
   add_index "monthly_rates", ["employee_id"], :name => "index_monthly_rates_on_employee_id"
 
   create_table "payroll_details", :force => true do |t|
-    t.integer  "payroll_id",             :null => false
-    t.integer  "employee_id",            :null => false
+    t.integer  "payroll_id"
+    t.integer  "employee_id"
     t.float    "days_worked"
     t.float    "hours_regular_overtime"
     t.float    "hours_special_overtime"
@@ -148,20 +148,6 @@ ActiveRecord::Schema.define(:version => 20120115113336) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "roles_id", :null => false
     t.integer "user_id",  :null => false
-  end
-
-  create_table "tax_rates", :force => true do |t|
-    t.string   "name",       :null => false
-    t.float    "rate",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "taxes", :force => true do |t|
-    t.string   "name",       :null => false
-    t.float    "rate",       :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

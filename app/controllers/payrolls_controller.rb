@@ -14,9 +14,9 @@ class PayrollsController < ApplicationController
   # GET /payrolls/1
   # GET /payrolls/1.json
   def show
-    @payroll = Payroll.find(params[:id])
-		@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
-		respond_to do |format|
+    @payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
+	@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+	respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @payroll }
     end
@@ -91,7 +91,7 @@ class PayrollsController < ApplicationController
   # DELETE /payrolls/1
   # DELETE /payrolls/1.json
   def destroy
-    @payroll = Payroll.find(params[:id])
+    @payroll = Payroll.find_by_id_and_company_id(params[:id], params[:company_id])
     @payroll.destroy
 
     respond_to do |format|
@@ -99,4 +99,34 @@ class PayrollsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def daily_payroll
+	init_report
+  end
+  
+  def daily_payroll_details
+	init_report
+  end
+  
+  def monthly_payroll
+	init_report
+  end
+  
+  def monthly_payroll_details
+	init_report
+  end
+  
+  def prooflist
+	init_report
+  end
+  
+  private
+	def init_report
+		@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
+		@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+		respond_to do |format|
+		  format.html 
+		  format.json { render json: @payroll }
+		end
+	end
 end

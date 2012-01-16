@@ -1,0 +1,23 @@
+<h2> Companies </h2>
+
+<table border="1">
+	<tr>
+		<th> Company </th>
+		<th colspan="2"> Payroll</th>
+		<th colspan="5"> View Latest</th>
+	</tr>
+	<% @companies.each do |c| %>
+		<% last_payroll = c.payrolls.last %>
+		<tr>
+			<td> <%= c.name %> </td>
+			<td> <%= link_to 'New',new_company_payroll_path(c.id) %></td>
+			<td> <%= link_to 'List', company_payrolls_path(c.id) %></td>
+			<td> <%= link_to 'Daily Rate', daily_payroll_company_payroll_path(c.id, last_payroll) unless last_payroll.nil? %></td>
+			<td> <%= link_to 'Daily Rate Details', daily_payroll_details_company_payroll_path(c.id, last_payroll) unless last_payroll.nil? %></td>
+			<td> <%= link_to 'Monthly Rate', monthly_payroll_company_payroll_path(c.id, last_payroll) unless last_payroll.nil? %></td>
+			<td> <%= link_to 'Monthly Rate Details', monthly_payroll_details_company_payroll_path(c.id, last_payroll) unless last_payroll.nil? %></td>
+			<td> <%= link_to 'Prooflist', prooflist_company_payroll_path(c.id, last_payroll) unless last_payroll.nil? %></td>
+		</tr>
+	<% end %>
+
+</table>

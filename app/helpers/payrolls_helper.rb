@@ -15,4 +15,8 @@ module PayrollsHelper
 	def get_default_end_date
 		return get_default_start_date + 15.days
 	end
+	
+	def pretty_print_date(date)
+		return "#{date.month}/#{date.day}/#{date.year}"
+	end
 end

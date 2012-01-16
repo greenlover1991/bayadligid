@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <table>
 		<tr>
 			<td>
@@ -11,45 +9,44 @@
 		</tr>
 		<tr>
 			<td>
-				For the period of <%= @payroll.date_started %> to <%= @payroll.date_ended %>
+				For the period of <%= pretty_print_date(@payroll.date_started) %> to <%= pretty_print_date(@payroll.date_ended) %>
 			</td>
 		</tr>
 </table>
 
 <table border="1">
 	<tr>
-		<th>Employee</th>
-		<th>Rate</th>
-		<th>Work Days</th>
-		<th>Basic Pay</th>		
-		<th>Regular OT</th>
-		<th>Regular Amount</th>
-		<th>Special OT</th>
-		<th>Special Amount</th>
-		<th>Legal OT</th>
-		<th>Legal Amount</th>
-		<th>Total OT</th>
-		<th>Total Amount</th>
-		<th>Day Off OT</th>
-		<th>Day Off Amount</th>
-		<th>Legal Holidays</th>
-		<th>Legal Holidays Amount</th>
-		<th>Days Absent</th>
-		<th>Minutes Tardy</th>
-		<th>Minutes Tardy Amount</th>
-		<th>Adjustment</th>
-		<th>Gross Pay</th>
-		<th>SSS</th>
-		<th>PhilHealth</th>
-		<th>HDMF</th>
-		<th>SSS Loan</th>
-		<th>HDMF Loan</th>
-		<th>Philhealth Loan</th>
-		<th>Salary Loan</th>
-		<th>Calamity Loan</th>
-		<th>With Tax</th>
-		<th>Other Deduction</th>
-		<th>Net Pay</th>
+		<th rowspan="2">NAME OF EMPLOYEE</th>
+		<th rowspan="2">Rate</th>
+		<th rowspan="2">Work Days</th>
+		<th rowspan="2">Basic Pay</th>		
+		<th colspan="2">OVERTIME</th>
+		<th colspan="2">Work on Day-Off</th>
+		<th rowspan="2">Legal Hol</th>
+		<th rowspan="2">Legal Hol Amount</th>
+		<th rowspan="2">Days Absent</th>
+		<th colspan="2">Undertime/Tardy</th>
+		<th rowspan="2">Adjustment</th>
+		<th rowspan="2">Gross Pay</th>
+		<th rowspan="2">SSS</th>
+		<th rowspan="2">PhilHealth</th>
+		<th rowspan="2">HDMF</th>
+		<th rowspan="2">SSS Loan</th>
+		<th rowspan="2">Philhealth Loan</th>
+		<th rowspan="2">HDMF Loan</th>
+		<th rowspan="2">Salary Loan</th>
+		<th rowspan="2">Calamity Loan</th>
+		<th rowspan="2">With Tax</th>
+		<th rowspan="2">Other Deduction</th>
+		<th rowspan="2">Net Pay</th>
+	</tr>
+	<tr>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Mins</th>
+		<th>Amount</th>
 	</tr>
 	<% cur_branch_id = -1 %>
 	<% @payroll_details.each do |pd| %>
@@ -57,7 +54,7 @@
 			<% if cur_branch_id != pd.employee.branch_id %>
 				<% cur_branch_id = pd.employee.branch_id %>
 				<tr>
-					<td colspan="11">
+					<td colspan="26">
 						<b><%= pd.employee.branch.name %></b>
 					</td>
 				</tr>
@@ -68,15 +65,8 @@
 			<td><%= "%.2f" % pd.rate %></td>
 			<td><%= "%.2f" % pd.days_worked %></td>
 			<td><%= "%.2f" % pd.basic_pay %></td>
-			<td><%= "%.2f" % pd.hours_regular_overtime %></td>
-			<td><%= "%.2f" % pd.regular_ot_amount %></td>
-			<td><%= "%.2f" % pd.hours_special_overtime %></td>
-			<td><%= "%.2f" % pd.special_ot_amount %></td>
-			<td><%= "%.2f" % pd.hours_legal_overtime %></td>
-			<td><%= "%.2f" % pd.legal_ot_amount %></td>			
 			<td><%= "%.2f" % pd.total_overtime_hours %></td>
 			<td><%= "%.2f" % pd.total_overtime_amount %></td>			
-			
 			
 			<td><%= "%.2f" % pd.hours_day_off_overtime %></td>
 			<td><%= "%.2f" % pd.work_on_day_off_amount %></td>
@@ -96,8 +86,8 @@
 			<td><%= "%.2f" % pd.hdmf_contribution %></td>
 			
 			<td><%= "%.2f" % pd.sss_loan %></td>
-			<td><%= "%.2f" % pd.hdmf_loan %></td>
 			<td><%= "%.2f" % pd.philhealth_loan %></td>
+			<td><%= "%.2f" % pd.hdmf_loan %></td>
 			<td><%= "%.2f" % pd.salary_loan %></td>
 			<td><%= "%.2f" % pd.calamity_loan %></td>
 

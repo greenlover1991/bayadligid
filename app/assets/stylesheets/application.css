@@ -5,3 +5,18 @@
  *= require_self
  *= require_tree . 
 */
+
+.Special {
+	color: red;
+}
+.Regular {
+	color: black;
+}
+	
+input[type="number"] {
+	width: 70px;
+}
+
+th{
+	font-size: 11px;
+}

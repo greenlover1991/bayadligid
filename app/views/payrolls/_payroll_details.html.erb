@@ -1,4 +1,4 @@
-<table>
+<table border="1">
 	<tr>
 		<th>Employee</th>
 		<th>Work Days</th>
@@ -18,13 +18,13 @@
 			<% if cur_branch_id != emp.branch_id %>
 				<% cur_branch_id = emp.branch_id %>
 				<tr>
-					<td>
+					<td colspan="11">
 						<b><%= emp.branch.name %></b>
 					</td>
 				</tr>
 			<% end%>
 			<tr>
-				<td><%= hidden_field_tag "payroll_detail[][employee_id]", emp.id %><%= emp.complete_name %></td>
+				<td><%= hidden_field_tag "payroll_detail[][employee_id]", emp.id %><%= link_to emp.complete_name, emp %></td>
 				<td><%= number_field_tag "payroll_detail[][days_worked]", 0, :step=>0.1 %></td>
 				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]", 0, :step=>0.1 %></td>
 				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]", 0, :step=>0.1 %></td>

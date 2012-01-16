@@ -1,14 +1,23 @@
 Bayadligid::Application.routes.draw do
   resources :companies do
   	resources :branches
-  	resources :payrolls
+  	resources :payrolls do
+		member do
+			get 'daily_payroll'
+			get 'daily_payroll_details'
+			get 'monthly_payroll'
+			get 'monthly_payroll_details'
+			get 'prooflist'
+			get 'payslip'
+		end
+	end
   end
 
   
 
   resources :loans
   resources :employees do
-  	resources :applied_loans 
+	resources :applied_loans 
   end
 
   resources :holidays do

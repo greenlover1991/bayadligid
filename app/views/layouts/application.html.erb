@@ -7,8 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'application/header' %>
-<%= yield %>
-<%= render 'application/footer' %>
+	<%= render 'application/header' %>
+	<%= render 'holidays/sidebar' %>
+	<div id="content" style="position:relative; float:left; background-color:#CCCCCC;">
+		<%= yield %>
+	</div>
+	<%= render 'application/footer' %>
+</div>
 </body>
 </html>

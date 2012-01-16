@@ -1,0 +1,11 @@
+<div id="sidebar" style="position: relative; float:left; padding-right:10px;">
+	<% holidays_of_month = Holiday.where(:date_of_holiday=>Date.today.beginning_of_month..Date.today.end_of_month) %>
+	<h3>Holidays of the month</h3>
+		<table>
+			<% holidays_of_month.each do |hol| %>
+				<tr>
+					<td class="<%= hol.holiday_type %>"> <%= hol.name %> - <%= hol.date_of_holiday.to_s %> </td>
+				</tr>
+			<% end %>
+		</table>
+</div>
