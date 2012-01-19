@@ -2,8 +2,14 @@
 <html>
 <head>
   <title>Bayadligid</title>
+  <style type="text/css" media="print">
+  	@media print{
+  		#header {
+  			display: none;
+  		}
+  	}
+  </style>
   <%= stylesheet_link_tag    "application" %>
-  <%= stylesheet_link_tag    "print", :media=>:print %>  
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
