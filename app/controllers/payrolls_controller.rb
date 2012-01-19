@@ -27,7 +27,7 @@ class PayrollsController < ApplicationController
   def new
   	@company = Company.find(params[:company_id])
     @payroll = Payroll.new
-	@company_employees = Employee.company_employees(@company.id)
+		@company_employees = Employee.company_employees(@company.id)
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @payroll }
@@ -45,10 +45,11 @@ class PayrollsController < ApplicationController
   # POST /payrolls.json
   def create
     @payroll = Payroll.new(params[:payroll])
-	payroll_details = params[:payroll_detail]
+
     respond_to do |format|
-      if !payroll_details.nil? && @payroll.save
+      if @payroll.save
       	pds = []
+    		payroll_details = params[:payroll_detail]
       	payroll_details.each do |pd|
       		pd["payroll_id"] = @payroll.id
       		pds << pd
