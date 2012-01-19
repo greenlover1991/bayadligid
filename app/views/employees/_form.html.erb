@@ -13,7 +13,7 @@
   
   <div class="field">
     <%= f.label :branch %><br />
-    <%= f.collection_select :branch_id, @available_branches, :id, :pretty_branches %>
+    <%= pretty_select_for_branches @available_branches %>
   </div>
 
   <div class="field">
@@ -30,7 +30,7 @@
   </div>
   <div class="field">
     <%= f.label :monthly_salary %><br />
-    <%= f.number_field :monthly_salary, :value=> @employee.new_record? ? 0 : @employee.monthly_rate, :step=>0.1 %>
+    <%= f.number_field :monthly_salary, :value=> @employee.new_record? ? 0 : @employee.monthly_rate, :step=>1.00 %>
   </div>
   
   <div class="field">
@@ -53,10 +53,7 @@
     <%= f.label :date_hired %><br />
     <%= f.date_select :date_hired, :start_year=>Time.now.year-15, :end_year=>Time.now.year %>
   </div>
-  <div class="field">
-    <%= f.label :date_regularized %><br />
-    <%= f.date_select :date_regularized, :start_year=>Time.now.year-15, :end_year=>Time.now.year %>
-  </div>
+  
   <div class="field">
     <%= f.label :sss_no %><br />
     <%= f.text_field :sss_no %>

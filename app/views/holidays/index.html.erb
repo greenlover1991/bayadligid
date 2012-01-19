@@ -12,7 +12,7 @@
 
 <% @holidays.each do |holiday| %>
   <tr>
-    <td><%= holiday.name %></td>
+    <td class="<%= holiday.holiday_type %>"><%= holiday.name %></td>
     <td><%= holiday.holiday_type %></td>
     <td><%= holiday.date_of_holiday %></td>
     <td><%= link_to 'Show', holiday %></td>

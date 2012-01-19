@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115113336) do
+ActiveRecord::Schema.define(:version => 20120119061901) do
 
   create_table "applied_loan_details", :force => true do |t|
     t.integer  "applied_loan_id"
@@ -126,6 +126,12 @@ ActiveRecord::Schema.define(:version => 20120115113336) do
     t.float    "salary_loan"
     t.float    "calamity_loan"
     t.float    "philhealth_loan"
+    t.float    "sss_contribution"
+    t.float    "philhealth_contribution"
+    t.float    "hdmf_contribution"
+    t.float    "with_tax"
+    t.float    "losses"
+    t.float    "cash_advance"
   end
 
   add_index "payroll_details", ["employee_id"], :name => "index_payroll_details_on_employee_id"

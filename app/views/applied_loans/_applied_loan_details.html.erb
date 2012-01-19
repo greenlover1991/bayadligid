@@ -1,0 +1,9 @@
+
+<h3>Breakdown:</h3>
+<ul>
+	<% @applied_loan.applied_loan_details.each do |details| %>
+			<li>
+				<%= details.date_applied %> - <%= details.amount %>
+			</li>
+	<% end %>
+</ul>

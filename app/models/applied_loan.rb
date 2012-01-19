@@ -86,19 +86,20 @@ class AppliedLoan < ActiveRecord::Base
   	def update_applied_loan_details
   		AppliedLoanDetail.delete_all(:applied_loan_id=>self.id)
 
-			start_date = self.date_started  	
+		start_date = self.date_started  	
   		if(self.interval_type == "Weekly")
-				@intervals.times do
-					AppliedLoanDetail.create(:applied_loan_id=>self.id, :amount=>self.amount_per_interval, :date_applied=>start_date)	
-					start_date += 7.days
+			@intervals.times do
+				AppliedLoanDetail.create(:applied_loan_id=>self.id, :amount=>self.amount_per_interval, :date_applied=>start_date)	
+				start_date += 7.days
   			end
 			elsif(self.interval_type == "Monthly")
-				
-				if(start_date.day > 25) 
+				if(start_date.day <= 10)
+					start_day = 10
+				elsif(start_date.day <= 25)
+					start_day = 25
+				elsif(start_date.day > 25) 
 					start_day = 10
 					start_date += 1.month
-				else 
-					start_day =	start_date.day
 				end
 				@intervals.times do
 					d = Date.parse("#{start_day}/#{start_date.month}/#{start_date.year}")				

@@ -9,8 +9,8 @@ class Branch < ActiveRecord::Base
   end
   
   def self.available_branches(user_id)
-		b = Branch.joins(:users).where("users.id=#{user_id}").order("companies.name, branches.name").includes(:company)
-		return b		
+	b = Branch.joins(:users).where("users.id=#{user_id}").order("companies.name, branches.name").includes(:company)
+	return b		
   end
 end
 

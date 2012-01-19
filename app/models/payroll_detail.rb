@@ -6,11 +6,6 @@ class PayrollDetail < ActiveRecord::Base
   @@SPECIAL_OT_RATE = 1.30
   @@LEGAL_OT_RATE = 1.00
   @@DAYOFF_OT_RATE = 1.00
-  @@SSS_TAX_RATE = 0.033
-  @@PHILHEALTH_TAX_RATE = 0.0125
-  @@HDMF_TAX_RATE = 0.02 
-  @@WITHHOLDING_TAX_RATE = 0.0453
-  
   
   before_save :update_loans_amount
   
@@ -84,24 +79,8 @@ class PayrollDetail < ActiveRecord::Base
   	basic_pay + total_overtime_amount + work_on_day_off_amount + adjustment - absent_amount - tardy_amount
   end
   
-  def sss_contribution
-  	gross_pay * @@SSS_TAX_RATE
-  end
-  
-  def philhealth_contribution
-  	gross_pay * @@PHILHEALTH_TAX_RATE
-  end
-  
-  def hdmf_contribution
-  	gross_pay * @@HDMF_TAX_RATE
-  end
-  
-  def with_tax
-  	gross_pay * @@WITHHOLDING_TAX_RATE
-  end
-  
   def total_deduction
-  	sss_contribution + philhealth_contribution + hdmf_contribution + sss_loan + hdmf_loan + philhealth_loan + salary_loan + calamity_loan + with_tax + other_deduction
+  	sss_contribution + philhealth_contribution + hdmf_contribution + sss_loan + hdmf_loan + philhealth_loan + salary_loan + calamity_loan + with_tax + other_deduction + losses + cash_advance
   end
   
   def net_pay

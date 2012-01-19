@@ -1,4 +1,4 @@
-<table>
+<table style="text-align:center;padding-left: 130px;">
 		<tr>
 			<td>
 				<h2><%= @payroll_detail.payroll.company.name.upcase %></h2>
@@ -66,7 +66,7 @@
 					<td><%= "%.2f" % @payroll_detail.with_tax %></td>				
 				</tr>
 				<tr>
-					<td rowspan="11">&nbsp</td>
+					<td rowspan="13">&nbsp</td>
 					<td>SSS</td>
 					<td><%= "%.2f" % @payroll_detail.sss_contribution %></td>				
 				</tr>
@@ -97,6 +97,14 @@
 				<tr>
 					<td>Calamity Loan</td>
 					<td><%= "%.2f" % @payroll_detail.calamity_loan %></td>				
+				</tr>	
+				<tr>
+					<td>Losses</td>
+					<td><%= "%.2f" % @payroll_detail.losses %></td>				
+				</tr>				
+				<tr>
+					<td>Cash Advance</td>
+					<td><%= "%.2f" % @payroll_detail.cash_advance %></td>				
 				</tr>				
 				<tr>
 					<td>Other Deduction</td>
@@ -116,55 +124,63 @@
 		<td>
 			<table style="text-align: center;">
 				<tr>
-					<td colspan="3"><%= @payroll_detail.payroll.company.name.upcase %></td>
+					<td colspan="7"><%= @payroll_detail.payroll.company.name.upcase %></td>
 				</tr>
 
-				<tr><td colspan="3">&nbsp</td></tr>
-				<tr><td colspan="3">&nbsp</td></tr>
-				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
 												
 																												
 				<tr>
-					<td colspan="3">
+					<td colspan="7">
 						I hereby acknowledge receipt of my
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">
+					<td colspan="7">
 						salary stated herein for the period 
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">
+					<td colspan="7">
 						<%= pretty_print_date(@payroll_detail.payroll.date_started) %> to <%= pretty_print_date(@payroll_detail.payroll.date_ended) %>.
 					</td>
 				</tr>
 				
-				<tr><td colspan="3">&nbsp</td></tr>
-				<tr><td colspan="3">&nbsp</td></tr>
-				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
 				
 				<tr>
-					<td colspan="3">
+					<td colspan="7">
 						<p>
 							Net Pay: <%= "%.2f" % @payroll_detail.net_pay %>
 						</p>
 					</td>
 				</tr>
 			
-				<tr><td colspan="3">&nbsp</td></tr>
-				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
 
 				
 				<tr>
-					<td  colspan="3"> _________________________________________________________________</td>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
+					<td colspan="3"> _________________________________________________________________</td>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
 				</tr>
 				<tr>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
 					<td><%= @payroll_detail.employee.last_name %></td>
 					<td><%= @payroll_detail.employee.first_name %></td>
 					<td><%= @payroll_detail.employee.middle_name %></td>					
+					<td>&nbsp</td>
+					<td>&nbsp</td>
 				</tr>
-				<tr><td colspan="3">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
 			</table>
 		</td>
 	</tr>

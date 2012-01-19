@@ -5,13 +5,9 @@
     <th>Date start</th>
     <th>Date end</th>
    
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="7"></th>
+    
+	
   </tr>
 
 <% @payrolls.each do |payroll| %>
@@ -22,10 +18,10 @@
     <td><%= link_to 'Edit', edit_company_payroll_path(@company, payroll) %></td>
     <td><%= link_to 'Destroy', [@company, payroll], confirm: 'Are you sure?', method: :delete %></td>
     <td> <%= link_to 'Daily Rate', daily_payroll_company_payroll_path(@company.id, payroll) %></td>
-		<td> <%= link_to 'Daily Rate Details', daily_payroll_details_company_payroll_path(@company.id, payroll) %></td>
-		<td> <%= link_to 'Monthly Rate', monthly_payroll_company_payroll_path(@company.id, payroll) %></td>
-		<td> <%= link_to 'Monthly Rate Details', monthly_payroll_details_company_payroll_path(@company.id, payroll) %></td>
-		<td> <%= link_to 'Prooflist', prooflist_company_payroll_path(@company.id, payroll) %></td>
+	<td> <%= link_to 'Daily Rate Details', daily_payroll_details_company_payroll_path(@company.id, payroll) %></td>
+	<td> <%= link_to 'Monthly Rate', monthly_payroll_company_payroll_path(@company.id, payroll) %></td>
+	<td> <%= link_to 'Monthly Rate Details', monthly_payroll_details_company_payroll_path(@company.id, payroll) %></td>
+	<td> <%= link_to 'Prooflist', prooflist_company_payroll_path(@company.id, payroll) %></td>
     
   </tr>
 <% end %>

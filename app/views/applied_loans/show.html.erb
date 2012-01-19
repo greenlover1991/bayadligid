@@ -40,6 +40,8 @@
   <%= @applied_loan.remaining_balance %>
 </p>
 
+<%= render 'applied_loan_details' %>
+
 
 <%= link_to 'Edit', edit_employee_applied_loan_path(@applied_loan.employee, @applied_loan) %> |
 <%= link_to 'Back', employee_applied_loans_path(@applied_loan.employee) %>

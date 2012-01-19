@@ -6,12 +6,15 @@ class Employee < ActiveRecord::Base
   has_many :users, :through=>:company
   
   validates_presence_of :first_name, :middle_name, :last_name, :status, :branch
+  validates_numericality_of :monthly_salary, :greater_than => 0
   #validates_uniqueness_of :sss_no, :philhealth_no, :pagibig_no
   
   attr_accessor :monthly_salary
   
   after_create :create_monthly_rate
   after_update :update_monthly_rate
+  
+  before_save :set_date_regularized
   
   def daily_rate
 	  monthly_rate / 314 * 12
@@ -50,6 +53,10 @@ class Employee < ActiveRecord::Base
 			end
 			MonthlyRate.create(:employee_id=>self.id, :rate=>self.monthly_salary, :date_started=>Date.today.end_of_month+1.days)
 
+		end
+		
+		def set_date_regularized
+			self.date_regularized = self.date_hired + 6.months
 		end
 		
 end

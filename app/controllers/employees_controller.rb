@@ -26,7 +26,7 @@ class EmployeesController < ApplicationController
   # GET /employees/new.json
   def new
     @employee = Employee.new
-		@available_branches = Branch.available_branches(session[:user_id])
+	@available_branches = Branch.available_branches(session[:user_id])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @employee }
