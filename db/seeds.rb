@@ -55,9 +55,4 @@ Loan.create(:name=>"PhilHealth")
 Loan.create(:name=>"Salary")
 Loan.create(:name=>"Calamity")
 
-# users
-u = User.create(:login=>'greenlover1991', :password=>'steven')
-s = User.create(:login=>'shirley', :password=>'shirley')
-u.companies = companies
-s.companies = companies
 
