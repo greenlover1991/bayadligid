@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119061901) do
+ActiveRecord::Schema.define(:version => 20120122142545) do
 
   create_table "applied_loan_details", :force => true do |t|
     t.integer  "applied_loan_id"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20120119061901) do
     t.integer  "branch_id",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "employee_type"
+    t.float    "rate"
   end
 
   add_index "employees", ["branch_id"], :name => "index_employees_on_branch_id"
@@ -143,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20120119061901) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
+    t.string   "payroll_type"
   end
 
   create_table "roles", :force => true do |t|

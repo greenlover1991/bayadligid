@@ -8,34 +8,18 @@ class PayrollDetail < ActiveRecord::Base
   @@DAYOFF_OT_RATE = 1.00
   
   before_save :update_loans_amount
-  
+  before_save :update_hours_legal_overtime
   def rate
-		from = self.payroll.date_started
-		to = self.payroll.date_ended
-		r = MonthlyRate.where("(date_started BETWEEN ? AND ? ) OR (date_ended BETWEEN ? AND ?)",from, to, from, to).order('created_at DESC').find_all_by_employee_id(self.employee_id)
-		
-		if r.empty?
-			r = MonthlyRate.find_by_employee_id_and_date_ended(self.employee_id, nil).rate
-		else
-			r = r[0].rate
-		end
-		
-		@daily_rate = r / 314 * 12
-		return @daily_rate
+		@daily_rate = self.employee.rate / 314 * 12
+		return self.employee.rate
   end
   
   def half_monthly_rate
-  	rate * 314 / 24 
+  	rate / 2
   end
   
   def basic_pay
-  	r = 0 
-  	if(@daily_rate.nil?)
-  		r = rate
-  	else
-  		r = @daily_rate
-  	end
-	  return r * days_worked
+  	return rate * days_worked
   end
   
   def total_overtime_hours
@@ -96,6 +80,10 @@ class PayrollDetail < ActiveRecord::Base
     	self.salary_loan = loans["Salary"].nil? ? 0 : loans["Salary"]
     	self.calamity_loan = loans["Calamity"].nil? ? 0 : loans["Calamity"]
     end
+	
+	def update_hours_legal_overtime
+		self.hours_legal_overtime = self.days_legal_holiday * 8.0
+	end
   	
 
   

@@ -1,12 +1,12 @@
 <table border="1">
 	<tr>
 		<th>Employee</th>
+		<th><%= (@payroll.payroll_type == "Monthly") ? "Monthly Rate" : "Daily Rate" %></th>
 		<th>Work Days</th>
 		<th>OT</th>
 		<th>Special Holidays</th>
 		<th>Legal Holidays</th>
 		<th>Day Off OT</th>
-		<th>Legal Holidays</th>
 		<th>Days Absent</th>
 		<th>Minutes Tardy</th>
 		<th>Adjustment</th>
@@ -31,12 +31,16 @@
 			<% end%>
 			<tr>
 				<td><%= hidden_field_tag "payroll_detail[][employee_id]", emp.id %><%= link_to emp.complete_name, emp %></td>
-				<td><%= number_field_tag "payroll_detail[][days_worked]", 0, :step=>1.00 %></td>
+				<td><%= "%.2f" % emp.rate %></td>
+				<% if @payroll.payroll_type == "Monthly" %>
+					<td><%= hidden_field_tag "payroll_detail[][days_worked]", 15 %>15</td>
+				<% else %>
+					<td><%= number_field_tag "payroll_detail[][days_worked]", 0, :step=>1.00 %></td>
+				<% end %>
 				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]", 0, :step=>1.00 %></td>
 				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_legal_overtime]", 0, :step=>1.00 %></td>
+				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]", 0, :step=>1.00 %></td>				
 				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]", 0, :step=>1.00 %></td>
 				<td><%= number_field_tag "payroll_detail[][days_absent]", 0, :step=>1.00 %></td>
 				<td><%= number_field_tag "payroll_detail[][minutes_tardy]", 0, :step=>1.00 %></td>
 				<td><%= number_field_tag "payroll_detail[][adjustment]", 0, :step=>1.00 %></td>
@@ -63,12 +67,16 @@
 				<td>
 						<%= hidden_field_tag "payroll_detail[][id]", pd.id %><%= pd.employee.complete_name %>
 				</td>
-				<td><%= number_field_tag "payroll_detail[][days_worked]", pd.days_worked, :step=>1.00  %></td>
+				<td><%= "%.2f" % pd.employee.rate %></td>
+				<% if @payroll.payroll_type == "Monthly" %>
+					<td>15</td>
+				<% else %>
+					<td><%= number_field_tag "payroll_detail[][days_worked]", pd.days_worked, :step=>1.00  %></td>
+				<% end %>
 				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]",pd.hours_regular_overtime, :step=>1.00  %></td>
 				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]",pd.hours_special_overtime, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_legal_overtime]",pd.hours_legal_overtime, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]",pd.hours_day_off_overtime, :step=>1.00  %></td>
 				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]",pd.days_legal_holiday, :step=>1.00  %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]",pd.hours_day_off_overtime, :step=>1.00  %></td>
 				<td><%= number_field_tag "payroll_detail[][days_absent]",pd.days_absent, :step=>1.00  %></td>
 				<td><%= number_field_tag "payroll_detail[][minutes_tardy]",pd.minutes_tardy, :step=>1.00  %></td>
 				<td><%= number_field_tag "payroll_detail[][adjustment]",pd.adjustment, :step=>1.00  %></td>

@@ -15,7 +15,7 @@ class PayrollsController < ApplicationController
   # GET /payrolls/1.json
   def show
 	@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-	@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+	@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?",@payroll.payroll_type).order(:branch_id).includes(:employee)
 	respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @payroll }
@@ -27,7 +27,8 @@ class PayrollsController < ApplicationController
   def new
   	@company = Company.find(params[:company_id])
     @payroll = Payroll.new
-		@company_employees = Employee.company_employees(@company.id)
+	@payroll.payroll_type = params[:payroll_type]
+	@company_employees = Employee.company_employees(@company.id, params[:payroll_type])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @payroll }
@@ -45,17 +46,23 @@ class PayrollsController < ApplicationController
   # POST /payrolls.json
   def create
     @payroll = Payroll.new(params[:payroll])
-
+	
     respond_to do |format|
       if @payroll.save
       	pds = []
-    		payroll_details = params[:payroll_detail]
+		payroll_details = params[:payroll_detail]
       	payroll_details.each do |pd|
       		pd["payroll_id"] = @payroll.id
       		pds << pd
       	end
       	PayrollDetail.create(pds)
-        format.html { redirect_to daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id), notice: 'Payroll was successfully created.' }
+		path = ""
+		if(@payroll.payroll_type == "Monthly")
+			path = monthly_payroll_company_payroll_path(@payroll.company_id,@payroll.id)
+		else
+			path = daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id)
+		end
+        format.html { redirect_to path, notice: 'Payroll was successfully created.' }
         format.json { render json: @payroll, status: :created, location: @payroll }
       else
         format.html { redirect_to new_company_payroll_path(@payroll.company_id, @payroll.id) }
@@ -68,7 +75,7 @@ class PayrollsController < ApplicationController
   # PUT /payrolls/1.json
   def update
     @payroll = Payroll.find(params[:id])
-
+	
     respond_to do |format|
       if @payroll.update_attributes(params[:payroll])
 	      pd_ids = []
@@ -80,7 +87,13 @@ class PayrollsController < ApplicationController
       		pd_values << pd
       	end
       	PayrollDetail.update(pd_ids, pd_values)
-        format.html { redirect_to daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id), notice: 'Payroll was successfully updated.' }
+        path = ""
+		if(params[:payroll_type] == "Monthly")
+			path = monthly_payroll_company_payroll_path(@payroll.company_id,@payroll.id)
+		else
+			path = daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id)
+		end
+        format.html { redirect_to path, notice: 'Payroll was successfully created.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -118,7 +131,7 @@ class PayrollsController < ApplicationController
   end
   
   def prooflist
-		init_report
+		#init_report
   end
   
   def payslip
@@ -130,7 +143,7 @@ class PayrollsController < ApplicationController
   private
 		def init_report
 			@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-			@payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+			@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?", @payroll.payroll_type).order(:branch_id).includes(:employee)
 			respond_to do |format|
 				format.html 
 				format.json { render json: @payroll }

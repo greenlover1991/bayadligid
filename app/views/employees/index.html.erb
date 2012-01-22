@@ -5,7 +5,8 @@
 		<tr>
 		  <th>Branch</th>
 		  <th>Name</th>
-		  <th>Monthly Salary</th>
+		  <th>Type</th>
+		  <th>Rate</th>
 		  <th>Address</th>
 		  <th>Landline</th>
 		  <th>Mobile</th>
@@ -22,13 +23,14 @@
 		<% if cur_company_id != employee.branch.company_id %>
 		<% cur_company_id = employee.branch.company_id %>
 			<tr>
-				<td colspan="14"><b><%= employee.branch.company.name %></b></td>
+				<td colspan="15"><b><%= employee.branch.company.name %></b></td>
 			</tr>
 		<% end %>
 		<tr>
 			<td><%= employee.branch.name %></td>
 		  <td><%= employee.complete_name %></td>
-		  <td><%= employee.monthly_rate %></td>
+		  <td><%= employee.employee_type %></td>
+		  <td><%= employee.rate %></td>
 		  <td><%= employee.address %></td>
 		  <td><%= employee.phone_no %></td>
 		  <td><%= employee.mobile_no %></td>

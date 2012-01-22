@@ -1,5 +1,5 @@
-<h1>New payroll for <%= @company.name %></h1>
+<h1>New <%= (@payroll.payroll_type=="Monthly") ? "Monthly" : "Daily" %> payroll for <%= @company.name %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', company_payrolls_path(@company) %>
+<%= link_to 'Back', '/' %>
