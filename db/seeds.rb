@@ -38,9 +38,10 @@ Holiday.create(:name=>"New Year\'s Eve", :holiday_type=>"Special", :date_of_holi
 companies = Company.create([{:name=>"Bibo Family Entertainment Inc."}, {:name=>"iTech Trading"}])
 
 # branches
-Branch.create(:company => companies.first, :name=>"SM Cebu Bibo")
+b1 = Branch.create(:company => companies.first, :name=>"SM Cebu")
+b2 = Branch.create(:company => companies.first, :name=>"SM Ilo-Ilo II")
 Branch.create(:company => companies[1], :name=>"Ayala")
-Branch.create(:company => companies[1], :name=>"SM Cebu")
+b3 = Branch.create(:company => companies[1], :name=>"SM Cebu")
 Branch.create(:company => companies[1], :name=>"SM CDO")
 Branch.create(:company => companies[1], :name=>"SM Calamba")
 Branch.create(:company => companies[1], :name=>"SM North Edsa")
@@ -55,4 +56,18 @@ Loan.create(:name=>"PhilHealth")
 Loan.create(:name=>"Salary")
 Loan.create(:name=>"Calamity")
 
-
+# daily employees
+# bibo cebu
+Employee.create(:first_name =>"Jeffrey", :last_name=>"Alburo", :middle_name=>"M", :birthdate=>Date.parse("January 19, 1980"), :rate=>305, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Rodrigo", :last_name=>"Cortes", :middle_name=>"Y", :birthdate=>Date.parse("January 19, 1980"), :rate=>360, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Lalican", :last_name=>"Steven", :middle_name=>"B", :birthdate=>Date.parse("January 19, 1980"), :rate=>305, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
+# bibo lilo-an
+Employee.create(:first_name =>"Josel", :last_name=>"Bermejo", :middle_name=>"B", :birthdate=>Date.parse("January 19, 1980"), :rate=>275, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Erwin", :last_name=>"Cencia", :middle_name=>"S", :birthdate=>Date.parse("January 19, 1980"), :rate=>265, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Jose Jolito", :last_name=>"Saludo", :middle_name=>"R", :birthdate=>Date.parse("January 19, 1980"), :rate=>277, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Michael", :last_name=>"Santillana", :middle_name=>"R", :birthdate=>Date.parse("January 19, 1980"), :rate=>265, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Richel", :last_name=>"Zaragoza", :middle_name=>"G", :birthdate=>Date.parse("January 19, 1980"), :rate=>306, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
+# itech sm cebu
+Employee.create(:first_name =>"Jovelyn", :last_name=>"Juele", :middle_name=>"Y", :birthdate=>Date.parse("January 19, 1980"), :rate=>16500, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")
+Employee.create(:first_name =>"Jessie", :last_name=>"Navarro", :middle_name=>"H", :birthdate=>Date.parse("January 19, 1980"), :rate=>28000, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")
+Employee.create(:first_name =>"Emilio Jr.", :last_name=>"Valiente", :middle_name=>"D", :birthdate=>Date.parse("January 19, 1980"), :rate=>13500, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")

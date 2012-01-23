@@ -8,9 +8,14 @@ class PayrollDetail < ActiveRecord::Base
   @@DAYOFF_OT_RATE = 1.00
   
   before_save :update_loans_amount
-  before_save :update_hours_legal_overtime
+ 
   def rate
-		@daily_rate = self.employee.rate / 314 * 12
+  	@rate = 0.0
+  	if self.payroll.payroll_type == "Monthly"
+  		@rate = self.employee.rate / 314 * 12
+  	else
+  	  @rate = self.employee.rate
+  	end
 		return self.employee.rate
   end
   
@@ -19,7 +24,15 @@ class PayrollDetail < ActiveRecord::Base
   end
   
   def basic_pay
-  	return rate * days_worked
+  	if @rate.nil?
+  		rate
+  	end
+  	
+		if self.payroll.payroll_type == "Monthly"
+			self.employee.rate / 2
+		else
+		  self.employee.rate * days_worked
+		end
   end
   
   def total_overtime_hours
@@ -27,19 +40,19 @@ class PayrollDetail < ActiveRecord::Base
   end
   
   def regular_ot_amount
-  	hours_regular_overtime / 8 * @daily_rate * @@REGULAR_OT_RATE
+  	hours_regular_overtime / 8 * @rate * @@REGULAR_OT_RATE
   end
   
   def special_ot_amount
-  	hours_special_overtime / 8 * @daily_rate * @@SPECIAL_OT_RATE
+  	hours_special_overtime / 8 * @rate * @@SPECIAL_OT_RATE
   end
   
   def legal_ot_amount
-  	hours_legal_overtime / 8 * @daily_rate * @@LEGAL_OT_RATE
+  	hours_legal_overtime / 8 * @rate * @@LEGAL_OT_RATE
   end
   
   def work_on_day_off_amount
-  	hours_day_off_overtime / 8 * @daily_rate * @@DAYOFF_OT_RATE
+  	hours_day_off_overtime / 8 * @rate * @@DAYOFF_OT_RATE
   end
   
   
@@ -48,15 +61,15 @@ class PayrollDetail < ActiveRecord::Base
   end
  
   def legal_holiday_amount
-	 	days_legal_holiday * @daily_rate
+	 	days_legal_holiday * @rate
   end
   
   def absent_amount
-  	days_absent * @daily_rate
+  	days_absent * @rate
   end
   
   def tardy_amount
-  	(1.0 - ((480.0 - minutes_tardy) / 480) ) * @daily_rate
+  	(1.0 - ((480.0 - minutes_tardy) / 480) ) * @rate
   end
   
   def gross_pay
@@ -80,10 +93,6 @@ class PayrollDetail < ActiveRecord::Base
     	self.salary_loan = loans["Salary"].nil? ? 0 : loans["Salary"]
     	self.calamity_loan = loans["Calamity"].nil? ? 0 : loans["Calamity"]
     end
-	
-	def update_hours_legal_overtime
-		self.hours_legal_overtime = self.days_legal_holiday * 8.0
-	end
   	
 
   

@@ -1,14 +1,22 @@
 <table border="1">
 	<tr>
 		<th>Employee</th>
-		<th><%= (@payroll.payroll_type == "Monthly") ? "Monthly Rate" : "Daily Rate" %></th>
-		<th>Work Days</th>
-		<th>OT</th>
-		<th>Special Holidays</th>
-		<th>Legal Holidays</th>
-		<th>Day Off OT</th>
-		<th>Days Absent</th>
-		<th>Minutes Tardy</th>
+		
+		<% if @payroll.payroll_type == "Monthly" %>
+				<th>Monthly Rate</th>
+				<% colspan = 17 %>
+		<% else %>
+				<th>Daily Rate</th>
+				<th>Work Days</th>
+				<% colspan = 18 %>
+		<% end %>
+		<th>OT(hours)</th>
+		<th>Special OT(hours)</th>
+		<th>Legal OT(hours)</th>
+		<th>Legal Holidays(days)</th>
+		<th>Day Off OT(hours)</th>
+		<th>Days Absent(days)</th>
+		<th>Minutes Tardy(minutes)</th>
 		<th>Adjustment</th>
 		<th>SSS</th>
 		<th>PhilHealth</th>
@@ -24,7 +32,7 @@
 			<% if cur_branch_id != emp.branch_id %>
 				<% cur_branch_id = emp.branch_id %>
 				<tr>
-					<td colspan="17">
+					<td colspan="<%= colspan %>">
 						<b><%= emp.branch.name %></b>
 					</td>
 				</tr>
@@ -32,25 +40,24 @@
 			<tr>
 				<td><%= hidden_field_tag "payroll_detail[][employee_id]", emp.id %><%= link_to emp.complete_name, emp %></td>
 				<td><%= "%.2f" % emp.rate %></td>
-				<% if @payroll.payroll_type == "Monthly" %>
-					<td><%= hidden_field_tag "payroll_detail[][days_worked]", 15 %>15</td>
-				<% else %>
-					<td><%= number_field_tag "payroll_detail[][days_worked]", 0, :step=>1.00 %></td>
+				<% if @payroll.payroll_type == "Daily" %>
+					<td><%= number_field_tag "payroll_detail[][days_worked]", 0, :step=>0.01 %></td>
 				<% end %>
-				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]", 0, :step=>1.00 %></td>				
-				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][days_absent]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][minutes_tardy]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][adjustment]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][sss_contribution]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][with_tax]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][losses]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][cash_advance]", 0, :step=>1.00 %></td>
-				<td><%= number_field_tag "payroll_detail[][other_deduction]", 0, :step=>1.00 %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_legal_overtime]", 0, :step=>0.01 %></td>				
+				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]", 0, :step=>0.01 %></td>				
+				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][days_absent]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][minutes_tardy]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][adjustment]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][sss_contribution]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][with_tax]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][losses]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][cash_advance]", 0, :step=>0.01 %></td>
+				<td><%= number_field_tag "payroll_detail[][other_deduction]", 0, :step=>0.01 %></td>
 			</tr>
 		<% end %>
 	<% else %>
@@ -59,7 +66,7 @@
 				<% if cur_branch_id != pd.employee.branch_id %>
 					<% cur_branch_id = pd.employee.branch_id %>
 					<tr>
-						<td>
+						<td colspan="<%= colspan %>">
 							<b><%= pd.employee.branch.name %></b>
 						</td>
 					</tr>
@@ -68,25 +75,24 @@
 						<%= hidden_field_tag "payroll_detail[][id]", pd.id %><%= pd.employee.complete_name %>
 				</td>
 				<td><%= "%.2f" % pd.employee.rate %></td>
-				<% if @payroll.payroll_type == "Monthly" %>
-					<td>15</td>
-				<% else %>
-					<td><%= number_field_tag "payroll_detail[][days_worked]", pd.days_worked, :step=>1.00  %></td>
+				<% if @payroll.payroll_type == "Daily" %>
+					<td><%= number_field_tag "payroll_detail[][days_worked]", pd.days_worked, :step=>0.01  %></td>
 				<% end %>
-				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]",pd.hours_regular_overtime, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]",pd.hours_special_overtime, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]",pd.days_legal_holiday, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]",pd.hours_day_off_overtime, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][days_absent]",pd.days_absent, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][minutes_tardy]",pd.minutes_tardy, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][adjustment]",pd.adjustment, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][sss_contribution]",pd.sss_contribution, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]",pd.philhealth_contribution, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]",pd.hdmf_contribution, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][with_tax]",pd.with_tax, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][losses]",pd.losses, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][cash_advance]",pd.cash_advance, :step=>1.00  %></td>
-				<td><%= number_field_tag "payroll_detail[][other_deduction]",pd.other_deduction, :step=>1.00  %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_regular_overtime]",pd.hours_regular_overtime, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_special_overtime]",pd.hours_special_overtime, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_legal_overtime]",pd.hours_legal_overtime, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][days_legal_holiday]",pd.days_legal_holiday, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][hours_day_off_overtime]",pd.hours_day_off_overtime, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][days_absent]",pd.days_absent, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][minutes_tardy]",pd.minutes_tardy, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][adjustment]",pd.adjustment, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][sss_contribution]",pd.sss_contribution, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]",pd.philhealth_contribution, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]",pd.hdmf_contribution, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][with_tax]",pd.with_tax, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][losses]",pd.losses, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][cash_advance]",pd.cash_advance, :step=>0.01  %></td>
+				<td><%= number_field_tag "payroll_detail[][other_deduction]",pd.other_deduction, :step=>0.01  %></td>
 			</tr>
 		<% end %>	
 	<% end %>

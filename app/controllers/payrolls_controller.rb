@@ -88,7 +88,7 @@ class PayrollsController < ApplicationController
       	end
       	PayrollDetail.update(pd_ids, pd_values)
         path = ""
-		if(params[:payroll_type] == "Monthly")
+		if(@payroll.payroll_type == "Monthly")
 			path = monthly_payroll_company_payroll_path(@payroll.company_id,@payroll.id)
 		else
 			path = daily_payroll_company_payroll_path(@payroll.company_id,@payroll.id)

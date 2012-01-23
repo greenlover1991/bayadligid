@@ -23,7 +23,7 @@ class AppliedLoan < ActiveRecord::Base
 		start_date = self.date_started
 		balance = self.original_amount
 		if(self.interval_type == "Weekly")
-				while start_date < Date.today
+				while balance > 0 && start_date < Date.today
 					balance -= self.amount_per_interval
 					start_date += 7.days
   			end
@@ -34,7 +34,7 @@ class AppliedLoan < ActiveRecord::Base
 			else 
 				start_day =	start_date.day
 			end
-			while start_date < Date.today
+			while balance > 0 && start_date < Date.today
 				balance -= self.amount_per_interval
 				from = Date.parse("#{start_day}/#{start_date.month}/#{start_date.year}")				
 				if(start_day == 10)
