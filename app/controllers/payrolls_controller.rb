@@ -15,7 +15,7 @@ class PayrollsController < ApplicationController
   # GET /payrolls/1.json
   def show
 	@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-	@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?",@payroll.payroll_type).order(:branch_id).includes(:employee)
+	@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?",@payroll.payroll_type).order(:branch_id).order("employees.last_name").includes(:employee)
 	respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @payroll }
@@ -27,8 +27,8 @@ class PayrollsController < ApplicationController
   def new
   	@company = Company.find(params[:company_id])
     @payroll = Payroll.new
-	@payroll.payroll_type = params[:payroll_type]
-	@company_employees = Employee.company_employees(@company.id, params[:payroll_type])
+		@payroll.payroll_type = params[:payroll_type]
+		@company_employees = Employee.company_employees(@company.id, params[:payroll_type])
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @payroll }
@@ -39,7 +39,7 @@ class PayrollsController < ApplicationController
   def edit
   	@company = Company.find(params[:company_id])
     @payroll = Payroll.find(params[:id])
-    @payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).includes(:employee)
+    @payroll_details = @payroll.payroll_details.joins(:employee).order(:branch_id).order("employees.last_name").includes(:employee)
   end
 
   # POST /payrolls
@@ -143,7 +143,7 @@ class PayrollsController < ApplicationController
   private
 		def init_report
 			@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])
-			@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?", @payroll.payroll_type).order(:branch_id).includes(:employee)
+			@payroll_details = @payroll.payroll_details.joins(:employee).where("employees.employee_type=?", @payroll.payroll_type).order(:branch_id).order("employees.last_name").includes(:employee)
 			respond_to do |format|
 				format.html 
 				format.json { render json: @payroll }

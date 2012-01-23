@@ -60,7 +60,7 @@ Loan.create(:name=>"Calamity")
 # bibo cebu
 Employee.create(:first_name =>"Jeffrey", :last_name=>"Alburo", :middle_name=>"M", :birthdate=>Date.parse("January 19, 1980"), :rate=>305, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
 Employee.create(:first_name =>"Rodrigo", :last_name=>"Cortes", :middle_name=>"Y", :birthdate=>Date.parse("January 19, 1980"), :rate=>360, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
-Employee.create(:first_name =>"Lalican", :last_name=>"Steven", :middle_name=>"B", :birthdate=>Date.parse("January 19, 1980"), :rate=>305, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
+Employee.create(:first_name =>"Steven", :last_name=>"Lalican", :middle_name=>"B", :birthdate=>Date.parse("January 19, 1980"), :rate=>305, :branch_id=>b1.id, :date_hired=>Date.today, :employee_type=>"Daily")
 # bibo lilo-an
 Employee.create(:first_name =>"Josel", :last_name=>"Bermejo", :middle_name=>"B", :birthdate=>Date.parse("January 19, 1980"), :rate=>275, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")
 Employee.create(:first_name =>"Erwin", :last_name=>"Cencia", :middle_name=>"S", :birthdate=>Date.parse("January 19, 1980"), :rate=>265, :branch_id=>b2.id, :date_hired=>Date.today, :employee_type=>"Daily")

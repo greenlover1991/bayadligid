@@ -37,7 +37,7 @@
 					</td>
 				</tr>
 			<% end%>
-			<tr>
+				<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">			
 				<td><%= hidden_field_tag "payroll_detail[][employee_id]", emp.id %><%= link_to emp.complete_name, emp %></td>
 				<td><%= "%.2f" % emp.rate %></td>
 				<% if @payroll.payroll_type == "Daily" %>
@@ -62,15 +62,15 @@
 		<% end %>
 	<% else %>
 		<% @payroll_details.each do |pd| %>
-			<tr>
-				<% if cur_branch_id != pd.employee.branch_id %>
-					<% cur_branch_id = pd.employee.branch_id %>
-					<tr>
-						<td colspan="<%= colspan %>">
-							<b><%= pd.employee.branch.name %></b>
-						</td>
-					</tr>
-				<% end%>
+			<% if cur_branch_id != pd.employee.branch_id %>
+				<% cur_branch_id = pd.employee.branch_id %>
+				<tr>
+					<td colspan="<%= colspan %>">
+						<b><%= pd.employee.branch.name %></b>
+					</td>
+				</tr>
+			<% end%>
+			<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 				<td>
 						<%= hidden_field_tag "payroll_detail[][id]", pd.id %><%= pd.employee.complete_name %>
 				</td>

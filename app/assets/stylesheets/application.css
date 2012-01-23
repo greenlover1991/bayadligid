@@ -21,3 +21,12 @@ th{
 	font-size: 11px;
 }
 
+.normal {
+	background-color: #FFFFFF;
+}
+
+.highlight {
+	background-color: #CCCCCC;
+}
+
+

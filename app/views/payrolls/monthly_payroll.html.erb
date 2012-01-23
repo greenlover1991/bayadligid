@@ -52,10 +52,10 @@
 	<% i = 0 %>
 	<% last_branch_name = "" %>
 	<% @payroll_details.each do |pd| %>
-		<tr>
+
 			<% if cur_branch_id != pd.employee.branch_id %>
 				<% if i>0 %>
-					<tr>
+					<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 						<td>
 							Total <%= last_branch_name %>
 						</td>
@@ -105,6 +105,7 @@
 					</td>
 				</tr>
 			<% end%>
+		<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 			<td>
 					<%= link_to pd.employee.complete_name, payslip_company_payroll_path(params[:company_id], params[:id]) + "?employee_id=#{pd.employee_id}" %>
 			</td>
@@ -143,7 +144,7 @@
 			<td><%= "%.2f" % pd.net_pay %><% sum[21] += pd.net_pay %></td>
 		</tr>
 	<% end %>	
-	<tr>
+	<tr	onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 		<td>
 			Total <%= last_branch_name %>
 		</td>
@@ -183,7 +184,7 @@
 		<% end %>
 	</tr>
 
-	<tr>
+	<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 		<td>
 			Grand Total
 		</td>

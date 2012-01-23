@@ -29,7 +29,7 @@ class Employee < ActiveRecord::Base
   end
   
 	def self.company_employees(company_id, payroll_type)
-		return Employee.joins(:branch, :company).where("companies.id = ? AND employees.employee_type = ?",company_id,payroll_type)
+		return Employee.joins(:branch, :company).where("companies.id = ? AND employees.employee_type = ?",company_id,payroll_type).order("branches.name").order(:last_name)
 	end
 	
 	private 
