@@ -1,0 +1,179 @@
+@import "bootstrap";
+
+/* universal */
+
+html{
+	overflow-y: scroll;
+}
+body{
+	padding-top: 60px;
+}
+
+.container table, .container form{
+	padding-left: 0;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+.container{
+	margin-left: 5%;
+}
+
+div .field select{
+		width: 9em;
+		margin-right: 1em;
+		margin-left: 1em;
+		padding: 0;
+		vertical-align: center;
+}
+div .field label{
+	marin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom:0;
+}
+div .field input{
+	margin-top: .25em;
+	margin-bottom: .25em;
+}
+
+.container textarea{
+	height: 100px;
+	width: 250px;
+	resize: both;
+}
+
+.container td{
+	text-align: center;
+}
+
+section{
+	overflow: auto;
+}
+
+.center{
+	text-align: center;
+	h1{
+		margin-bottom: 10px;
+	}
+}
+
+/* typography */
+h1, h2, h3, h4, h5, h6{
+	line-height: 1;
+}
+
+h1{
+	font-size: 3em;
+	letter-spacing: -2px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+
+h2{
+	font-size: 1.7em;
+	letter-spacing: -1px;
+	margin-bottom: 30px;
+	text-align: center;
+	font-weight: normal;
+	color: #999;
+}
+
+p{
+	font-size: 1.1em;
+	line-height: 1.7em;
+}
+
+#logo{
+	float: left;
+	margin-right: 10px;
+	font-size: 1.7em;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	padding-top: 9px;
+	font-weight: bold;
+	line-height: 1;
+	&:hover{
+			color: #fff;
+			text-decoration: none;	
+	}
+}
+
+td a:visited, td a:hover{
+	color: #08C;
+	background-color: #CCC;
+}
+
+
+/* footer */
+
+footer{
+	margin-top: 45px;
+	padding-top: 5px;
+	border-top: 1px solid #eaeaea;
+	color: #999;
+
+	a{
+		color: #555;
+		&:hover{
+			color: #222;				
+		}
+	}
+	small{
+		float: left;
+	}
+
+	ul{
+		float: right;
+		list-style: none;	
+		li{
+			float: left;
+			margin-left: 10px;
+		}
+	}
+}
+
+
+.Special {
+	color: red;
+}
+.Regular {
+	color: black;
+}
+	
+input[type="number"] {
+	width: 4em;
+	margin-bottom: 0;
+	text-align: right;
+}
+
+th{
+	font-size: 11px;
+}
+
+.normal {
+	background-color: #FFFFFF;
+}
+
+.highlight {
+	background-color: #CCCCCC;
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px; } }
+
+#notice {
+  color: green; }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table; }
+  
+div .actions{
+	margin-top: 2em;
+}

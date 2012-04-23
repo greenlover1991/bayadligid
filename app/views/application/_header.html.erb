@@ -1,13 +1,18 @@
-<div id="header">
-<% if session[:user_id] %>
-	<%= link_to 'Home', '/' %> |
-	<%= link_to 'Manage Holidays', holidays_path %> |
-	<%= link_to 'Manage Companies', companies_path %> |
-	<%= link_to 'Manage Employees', employees_path %> | 
-	<%= link_to 'Logout', '/logout' %>
-<% else %>
-	<h2>BayadLigid - Payroll System</h2>	
-<% end %>
-	<hr/>
-</div>
-
+<header class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<%= link_to "Bayadligid", root_path, id: 'logo' %>
+			<% if session[:user_id] %>
+				<nav>
+					<ul class="nav pull-right">
+						<li><%= link_to 'Payroll', '/' %></li>
+						<li><%= link_to 'Holidays', holidays_path %></li>
+						<li><%= link_to 'Companies', companies_path %></li>
+						<li><%= link_to 'Employees', employees_path %></li>
+						<li><%= link_to 'Logout', '/logout' %></li>
+					</ul>
+				</nav>
+			<% end %>
+		</div>
+	</div>
+</header>

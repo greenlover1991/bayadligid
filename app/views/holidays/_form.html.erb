@@ -12,18 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :holiday_type %><br />
+    <%= f.label :holiday_type %>
     <% Holiday.holiday_types.each do |t| %>
 		  <%= f.radio_button :holiday_type, t %> <%= t %>
-		  <br />
+		  
     <% end %>
   </div>
   <div class="field">
-    <%= f.label :date_of_holiday %><br />
+    <%= f.label :date_of_holiday %>
     <%= f.date_select :date_of_holiday %>
   </div>
   <div class="actions">

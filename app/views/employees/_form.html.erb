@@ -12,71 +12,71 @@
   <% end %>
   
   <div class="field">
-    <%= f.label :branch %><br />
+    <%= f.label :branch %>
     <%= pretty_select_for_branches @available_branches %>
   </div>
 
   <div class="field">
-    <%= f.label :first_name %><br />
+    <%= f.label :first_name %>
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :middle_name %><br />
+    <%= f.label :middle_name %>
     <%= f.text_field :middle_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br />
+    <%= f.label :last_name %>
     <%= f.text_field :last_name %>
   </div>
   <div class="field">
-	<%= f.label :employee_type %><br />
+	<%= f.label :employee_type %>
 	<% Employee.employee_types.each do |e| %>
 	  <%= f.radio_button :employee_type, e, :checked=>"checked" %> <%= e %>
-	  <br />
+	  
     <% end %>
 	
   </div>
   
   <div class="field">
-    <%= f.label :rate %><br />
+    <%= f.label :rate %>
     <%= f.number_field :rate, :step=>0.01 %>
   </div>
   
   <div class="field">
-    <%= f.label :address %><br />
+    <%= f.label :address %>
     <%= f.text_area :address %>
   </div>
   <div class="field">
-    <%= f.label :phone_no %><br />
+    <%= f.label :phone_no %>
     <%= f.text_field :phone_no %>
   </div>
   <div class="field">
-    <%= f.label :mobile_no %><br />
+    <%= f.label :mobile_no %>
     <%= f.text_field :mobile_no %>
   </div>
   <div class="field">
-    <%= f.label :birthdate %><br />
+    <%= f.label :birthdate %>
     <%= f.date_select :birthdate, :start_year=>Time.now.year-40, :end_year=>Time.now.year-10 %>
   </div>
   <div class="field">
-    <%= f.label :date_hired %><br />
+    <%= f.label :date_hired %>
     <%= f.date_select :date_hired, :start_year=>Time.now.year-15, :end_year=>Time.now.year %>
   </div>
   
   <div class="field">
-    <%= f.label :sss_no %><br />
+    <%= f.label :sss_no %>
     <%= f.text_field :sss_no %>
   </div>
   <div class="field">
-    <%= f.label :philhealth_no %><br />
+    <%= f.label :philhealth_no %>
     <%= f.text_field :philhealth_no %>
   </div>
   <div class="field">
-    <%= f.label :pagibig_no %><br />
+    <%= f.label :pagibig_no %>
     <%= f.text_field :pagibig_no %>
   </div>
   <div class="field">
-    <%= f.label :civil_status %><br />
+    <%= f.label :civil_status %>
     <%= f.select :civil_status, Employee.civil_statuses %>
   </div>
 
