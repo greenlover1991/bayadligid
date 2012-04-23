@@ -1,11 +1,11 @@
 	<p id="notice"><%= notice %></p>
 	<%= form_for @user, :url=>{:controller => "application", :action => "authenticating"} do |f| %>
 	  <div class="field">
-      <%= f.label :login %><br />
+      <%= f.label :login %>
       <%= f.text_field :login %>
     </div>
     <div class="field">
-      <%= f.label :password %><br />
+      <%= f.label :password %>
       <%= f.password_field :password %>
     </div>
     <div class="actions">
