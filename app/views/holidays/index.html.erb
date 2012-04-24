@@ -21,8 +21,7 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Holiday', new_holiday_path %>
-<%= link_to 'Reset Holidays', reset_holidays_path, confirm: 'Are you sure to reset holidays?', method: :get %>
+<div class="extra">
+	<%= link_to 'New Holiday', new_holiday_path %> |
+	<%= link_to 'Reset Holidays', reset_holidays_path, confirm: 'Are you sure to reset holidays?', method: :get %>
+</div>

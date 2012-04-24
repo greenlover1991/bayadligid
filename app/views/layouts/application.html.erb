@@ -33,56 +33,84 @@
   			border: 1px solid black;
   		}
   		
-  		/*
-			.wholepaper{
-				margin: 0;
-				margin-top: .5em;
-				padding: 0;
-				width: 400px
-				height: 600px;
+			.paper h1, .paper h2, .paper h3, .paper th, .paper strong, .paper p{
 				font-size: 8pt;
-				h1, h2, h3, p, td{
-					font-size: 6pt;
-					font-weight: normal;
-					line-height: 1;
-				}
+				padding: 0;
+				margin: 0;
+				line-height: 1;
+				text-align: center;
 			}
-			*/
 			.paper{
-				margin-top: .25em;
-				margin-bottom: .20em;
-				margin-right: .35em;
-				padding: .5em;
-				padding-right: 1em; 
+				margin:0;
+				margin-right: .25em;
+				margin-bottom: .25em;
+				padding: .25em;
 				display: inline-block;
 				border: 1px solid black;
-				table{
-				  border: none;
-			 	}
+				width: 44%;
 			}
 
 
 			.left-column{
 				float: left;
-				td{
-					padding-top: .75em;
-					padding-left: .5em;
-					padding-right: .5em;
-					text-align: left;
-				}
+				margin-left: .5em;
+				margin-top: .25em;
+				
+			}
+			
+			.left-column table{
+				padding-left: .25em;
+				padding-right: .25em;
+				text-align: left;
 			}
 
 			.right-column{
 				float: right;
-				td{
-					font-size: 9pt;
-					padding: 0;
-					margin: 0;
-					padding-left: .5em;
-					padding-right: .5em;
-					text-align: left;
-				}
+				margin-right: .5em;
+				margin-top: .25em;
+				
 			}
+			
+			.right-column table {
+				font-size: 9pt;
+				padding: 0;
+				margin: 0;
+				padding-left: .25em;
+				padding-right: .25em;
+				text-align: left;
+			}
+
+			.center-column{
+				position: relative;
+				text-align: center;
+				padding: 0;
+				margin: 0;
+				margin-top: .5em;
+				width: 100%;
+				display: inline-block;
+				border-top: 1px dotted black;
+				float: left;
+			}
+			.center-column p, .center-column strong{
+				font-size: 10pt;
+				padding: 0;
+				margin: 0;
+				margin-top: .5em;
+			}
+			.center-column .less-margin{
+				line-height: 1;
+				margin-top: .25em;
+				margin-bottom: .25em;
+			}
+			.signature{
+				margin-top: 1em;
+				margin-bottom: .5em;
+				border-top: 1px solid black;
+			}
+			.signature p{
+				margin-top: .1em;
+			}
+
 			.page-break{
 				display: block;
 				page-break-before: always;
