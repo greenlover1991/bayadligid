@@ -55,6 +55,9 @@ Loan.create(:name=>"SSS")
 Loan.create(:name=>"PhilHealth")
 Loan.create(:name=>"Salary")
 Loan.create(:name=>"Calamity")
+Loan.create(:name=>"Cash Advance")
+Loan.create(:name=>"Other Deductions")
+Loan.create(:name=>"Losses")
 
 # daily employees
 # bibo cebu
@@ -71,3 +74,5 @@ Employee.create(:first_name =>"Richel", :last_name=>"Zaragoza", :middle_name=>"G
 Employee.create(:first_name =>"Jovelyn", :last_name=>"Juele", :middle_name=>"Y", :birthdate=>Date.parse("January 19, 1980"), :rate=>16500, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")
 Employee.create(:first_name =>"Jessie", :last_name=>"Navarro", :middle_name=>"H", :birthdate=>Date.parse("January 19, 1980"), :rate=>28000, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")
 Employee.create(:first_name =>"Emilio Jr.", :last_name=>"Valiente", :middle_name=>"D", :birthdate=>Date.parse("January 19, 1980"), :rate=>13500, :branch_id=>b3.id, :date_hired=>Date.today, :employee_type=>"Monthly")
+u = User.create(:login =>"shirley", :password => "shirley")
+u.companies = companies

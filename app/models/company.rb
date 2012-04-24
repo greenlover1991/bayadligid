@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: companies
+#
+#  id         :integer         not null, primary key
+#  name       :string(255)     not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Company < ActiveRecord::Base
 	has_many :branches, :dependent=>:destroy
 	has_many :payrolls, :dependent=>:destroy

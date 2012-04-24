@@ -9,6 +9,7 @@ Bayadligid::Application.routes.draw do
 			get 'monthly_payroll_details'
 			get 'prooflist'
 			get 'payslip'
+			get 'two_by_two'
 		end
 	end
   end

@@ -3,18 +3,22 @@
 
 	<table border=1>
 		<tr>
-		  <th>Branch</th>
-		  <th>Name</th>
-		  <th>Type</th>
-		  <th>Rate</th>
-		  <th>Address</th>
-		  <th>Landline</th>
-		  <th>Mobile</th>
-		  <th>Birthdate</th>
-		  <th>SSS</th>
-		  <th>Philhealth</th>
-		  <th>Pag-ibig</th>
-		  <th colspan="4"></th>
+		  <th rowspan="2">Branch</th>
+		  <th rowspan="2">Name</th>
+		  <th rowspan="2">Type</th>
+		  <th rowspan="2">Rate</th>
+		  <th colspan="12">Remaining Balance(Loans)</th>
+		</tr>
+		<tr>
+		  <td>HDMF</td>
+		  <td>SSS</td>
+		  <td>PhilHealth</td>
+		  <td>Salary</td>
+		  <td>Calamity</td>
+		  <td>Cash Advance</td>
+		  <td>Other Deductions</td>
+		  <td>Losses</td>
+		  <td colspan="4">Options</td>
 		</tr>
 <% cur_company_id = -1 %>
 <% @employees.each do |employee| %>
@@ -23,7 +27,7 @@
 		<% if cur_company_id != employee.branch.company_id %>
 		<% cur_company_id = employee.branch.company_id %>
 			<tr>
-				<td colspan="15"><b><%= employee.branch.company.name %></b></td>
+				<td colspan="16"><b><%= employee.branch.company.name %></b></td>
 			</tr>
 		<% end %>
 		<tr>
@@ -31,15 +35,16 @@
 		  <td><%= employee.complete_name %></td>
 		  <td><%= employee.employee_type %></td>
 		  <td><%= employee.rate %></td>
-		  <td><%= employee.address %></td>
-		  <td><%= employee.phone_no %></td>
-		  <td><%= employee.mobile_no %></td>
-		  <td><%= employee.birthdate %></td>
-		  <td><%= employee.sss_no %></td>
-		  <td><%= employee.philhealth_no %></td>
-		  <td><%= employee.pagibig_no %></td>
-		  <td><%= link_to 'Show', employee %></td>
-		  <td><%= link_to 'Applied Loans', employee_applied_loans_path(employee) %></td>
+		  <td><%= employee.remaining_balance("HDMF") %></td>
+		  <td><%= employee.remaining_balance("SSS") %></td>
+		  <td><%= employee.remaining_balance("PhilHealth") %></td>
+		  <td><%= employee.remaining_balance("Salary") %></td>
+		  <td><%= employee.remaining_balance("Calamity") %></td>
+		  <td><%= employee.remaining_balance("Cash Advance") %></td>		  		  
+		  <td><%= employee.remaining_balance("Other Deductions") %></td>
+		  <td><%= employee.remaining_balance("Losses") %></td>
+		  <td><%= link_to 'View Employee', employee %></td>
+		  <td><%= link_to 'View Applied Loans', employee_applied_loans_path(employee) %></td>
 		  <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
 		  <td><%= link_to 'Destroy', employee, confirm: 'Are you sure?', method: :delete %></td>
 		</tr>
@@ -49,5 +54,6 @@
 
 
 <br />
-
-<%= link_to 'New Employee', new_employee_path %>
+<div class="extra">
+	<%= link_to 'New Employee', new_employee_path %>
+</div>

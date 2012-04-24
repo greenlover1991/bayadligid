@@ -17,13 +17,13 @@
 					<%= f.hidden_field :company_id, :value=>params[:company_id] %>
 				  <div class="field">
 						<%= f.label :date_started, "From:" %>
-						<%= f.date_select :date_started, :default => get_default_start_date %>
+						<%= f.date_select :date_started, {:default => get_default_start_date}, {:class=>"dateselect"} %>
 				  </div>
 			</td>
 			<td>
 				  <div class="field">
 						<%= f.label :date_ended, "To:" %>
-						<%= f.date_select :date_ended, :default => get_default_end_date %>
+						<%= f.date_select :date_ended, {:default => get_default_end_date}, {:class=>"dateselect"} %>
 						<%= f.hidden_field :payroll_type, :value=>@payroll.payroll_type %>
 					</div>
 			</td>

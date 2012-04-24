@@ -1,47 +1,50 @@
-<p id="notice"><%= notice %></p>
+<div class="show">
 
-<p>
-  <b>Employee:</b>
-  <%= @applied_loan.employee.complete_name %>
-</p>
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Loan:</b>
-  <%= @applied_loan.loan.name %>
-</p>
+	<p>
+		<b>Employee:</b>
+		<%= @applied_loan.employee.complete_name %>
+	</p>
 
-<p>
-  <b>Date started:</b>
-  <%= @applied_loan.date_started %>
-</p>
+	<p>
+		<b>Loan:</b>
+		<%= @applied_loan.loan.name %>
+	</p>
 
-<p>
-  <b>Date ended:</b>
-  <%= @applied_loan.date_ended %>
-</p>
+	<p>
+		<b>Date started:</b>
+		<%= @applied_loan.date_started %>
+	</p>
 
-<p>
-  <b>Interval Type:</b>
-  <%= @applied_loan.interval_type %>
-</p>
+	<p>
+		<b>Date ended:</b>
+		<%= @applied_loan.date_ended %>
+	</p>
 
-<p>
-  <b>Amount per interval:</b>
-  <%= @applied_loan.amount_per_interval %>
-</p>
+	<p>
+		<b>Interval Type:</b>
+		<%= @applied_loan.interval_type %>
+	</p>
 
-<p>
-  <b>Original amount:</b>
-  <%= @applied_loan.original_amount %>
-</p>
+	<p>
+		<b>Amount per interval:</b>
+		<%= @applied_loan.amount_per_interval %>
+	</p>
 
-<p>
-  <b>Remaining balance:</b>
-  <%= @applied_loan.remaining_balance %>
-</p>
+	<p>
+		<b>Original amount:</b>
+		<%= @applied_loan.original_amount %>
+	</p>
 
-<%= render 'applied_loan_details' %>
+	<p>
+		<b>Remaining balance:</b>
+		<%= @applied_loan.remaining_balance %>
+	</p>
 
-
-<%= link_to 'Edit', edit_employee_applied_loan_path(@applied_loan.employee, @applied_loan) %> |
-<%= link_to 'Back', employee_applied_loans_path(@applied_loan.employee) %>
+	<%= render 'applied_loan_details' %>
+</div>
+<div class="extra">
+	<%= link_to 'Edit', edit_employee_applied_loan_path(@applied_loan.employee, @applied_loan) %> |
+	<%= link_to 'Back', employee_applied_loans_path(@applied_loan.employee) %>
+</div>

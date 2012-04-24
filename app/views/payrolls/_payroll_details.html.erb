@@ -4,11 +4,11 @@
 		
 		<% if @payroll.payroll_type == "Monthly" %>
 				<th>Monthly Rate</th>
-				<% colspan = 17 %>
+				<% colspan = 14 %>
 		<% else %>
 				<th>Daily Rate</th>
 				<th>Work Days</th>
-				<% colspan = 18 %>
+				<% colspan = 15 %>
 		<% end %>
 		<th>OT(hours)</th>
 		<th>Special OT(hours)</th>
@@ -22,9 +22,6 @@
 		<th>PhilHealth</th>
 		<th>HDMF</th>
 		<th>Withholding Tax</th>
-		<th>Losses</th>
-		<th>Cash Advance</th>
-		<th>Other Deduction</th>
 	</tr>
 	<% cur_branch_id = -1 %>
 	<% if @payroll.new_record? %>
@@ -55,9 +52,6 @@
 				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]", 0, :step=>0.01 %></td>
 				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]", 0, :step=>0.01 %></td>
 				<td><%= number_field_tag "payroll_detail[][with_tax]", 0, :step=>0.01 %></td>
-				<td><%= number_field_tag "payroll_detail[][losses]", 0, :step=>0.01 %></td>
-				<td><%= number_field_tag "payroll_detail[][cash_advance]", 0, :step=>0.01 %></td>
-				<td><%= number_field_tag "payroll_detail[][other_deduction]", 0, :step=>0.01 %></td>
 			</tr>
 		<% end %>
 	<% else %>
@@ -90,9 +84,6 @@
 				<td><%= number_field_tag "payroll_detail[][philhealth_contribution]",pd.philhealth_contribution, :step=>0.01  %></td>
 				<td><%= number_field_tag "payroll_detail[][hdmf_contribution]",pd.hdmf_contribution, :step=>0.01  %></td>
 				<td><%= number_field_tag "payroll_detail[][with_tax]",pd.with_tax, :step=>0.01  %></td>
-				<td><%= number_field_tag "payroll_detail[][losses]",pd.losses, :step=>0.01  %></td>
-				<td><%= number_field_tag "payroll_detail[][cash_advance]",pd.cash_advance, :step=>0.01  %></td>
-				<td><%= number_field_tag "payroll_detail[][other_deduction]",pd.other_deduction, :step=>0.01  %></td>
 			</tr>
 		<% end %>	
 	<% end %>

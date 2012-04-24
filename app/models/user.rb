@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id          :integer         not null, primary key
+#  login       :string(255)     not null
+#  password    :string(255)     not null
+#  employee_id :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class User < ActiveRecord::Base
   belongs_to :employee
   

@@ -1,0 +1,114 @@
+<div class="wholepaper">
+	<% @payroll_details.each do |pd| %>
+		<div class="paper">
+				<h1><%= pd.employee.branch.pretty_branches.upcase %></h1>
+				<h1><%= pretty_print_date(pd.payroll.date_started) %> - <%= pretty_print_date(pd.payroll.date_ended) %></h1>
+				<h2><%= pd.employee.full_name %></h2>	
+			<div class="left-column">	
+				
+				<table>
+				<tr><th colspan="2">EARNINGS</th></tr>
+				
+					<tr><td>Basic</td>
+						<td><%= "%.2f" % pd.basic_pay %></td></tr>
+					<tr><td>Regular OT</td>
+						<td><%= "%.2f" % pd.regular_ot_amount %></td></tr>
+					<tr><td>Special OT</td>
+						<td><%= "%.2f" % pd.special_ot_amount %></td></tr>
+					<tr>
+						<td>Legal OT</td>
+						<td><%= "%.2f" % pd.legal_ot_amount %></td>
+					</tr>
+					<tr>
+						<td>DayOff OT</td>
+						<td><%= "%.2f" % pd.work_on_day_off_amount %></td>
+					</tr>
+					<tr>
+						<td>Adjustment</td>
+						<td><%= "%.2f" % pd.adjustment %></td>
+					</tr>	
+					<tr>
+						<td>Absent</td>
+						<td><%= "%.2f" % pd.absent_amount %></td>
+					</tr>
+					<tr>
+						<td>Tardy</td>
+						<td><%= "%.2f" % pd.tardy_amount %></td>
+					</tr>
+					<tr>
+						<td>Gross Pay</td>
+						<td><%= "%.2f" % pd.gross_pay %></td>
+					</tr>
+				</table>
+			</div>
+			<div class="right-column">
+				<table>
+					<tr><th colspan="2">LESS</th></tr>
+					
+					<tr>
+						<td>Tax Withheld</td>
+						<td><%= "%.2f" % pd.with_tax %></td>				
+					</tr>
+					<tr>
+						<td>SSS</td>
+						<td><%= "%.2f" % pd.sss_contribution %></td>				
+					</tr>
+					<tr>
+						<td>HDMF</td>
+						<td><%= "%.2f" % pd.hdmf_contribution %></td>				
+					</tr>
+					<tr>
+						<td>PhilHealth</td>
+						<td><%= "%.2f" % pd.philhealth_contribution %></td>				
+					</tr>
+					<tr>
+						<td>SSS Loan</td>
+						<td><%= "%.2f" % pd.sss_loan %></td>				
+					</tr>			
+					<tr>
+						<td>HDMF Loan</td>
+						<td><%= "%.2f" % pd.hdmf_loan %></td>				
+					</tr>			
+					<tr>
+						<td>PhilHealth Loan</td>
+						<td><%= "%.2f" % pd.philhealth_loan %></td>				
+					</tr>					
+					<tr>
+						<td>Salary Loan</td>
+						<td><%= "%.2f" % pd.salary_loan %></td>				
+					</tr>			
+					<tr>
+						<td>Calamity Loan</td>
+						<td><%= "%.2f" % pd.calamity_loan %></td>				
+					</tr>	
+					<tr>
+						<td>Losses</td>
+						<td><%= "%.2f" % pd.losses %></td>				
+					</tr>				
+					<tr>
+						<td>Cash Advance</td>
+						<td><%= "%.2f" % pd.cash_advance %></td>				
+					</tr>				
+					<tr>
+						<td>Other Deduction</td>
+						<td><%= "%.2f" % pd.other_deduction %></td>				
+					</tr>
+					<tr>
+						<td>Total Deduction</td>
+						<td><%= "%.2f" % pd.total_deduction %></td>				
+					</tr>				
+					<tr>
+						<td>Net Pay</td>
+						<td><%= "%.2f" % pd.net_pay %></td>				
+					</tr>			
+				</table>
+			</div>
+		</div>
+	<% end %>	
+</div>
+
+<div class="extra">
+	<input type="button" value="Print" id="btnPrint" />
+	<%= link_to 'Back', company_payrolls_path(params[:id]) %>
+</div>
+

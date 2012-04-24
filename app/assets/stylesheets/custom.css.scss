@@ -8,25 +8,31 @@ html{
 body{
 	padding-top: 60px;
 }
-
-.container table, .container form{
-	padding-left: 0;
+.container table, .container .new_payroll, .container .edit_payroll{
 	margin-left: auto;
 	margin-right: auto;
-	
+}
+.container form{
+	margin-left: 10%;
 }
 
 .container{
-	margin-left: 5%;
+	width: 100%;
 }
 
 div .field select{
-		width: 9em;
+		width: 10em;
 		margin-right: 1em;
 		margin-left: 1em;
 		padding: 0;
-		vertical-align: center;
+		vertical-align: middle;
 }
+
+div .field .dateselect{
+	 width: 7em;
+}
+
+
 div .field label{
 	marin-top: 0;
 	margin-bottom: 0;
@@ -174,6 +180,64 @@ div {
   background-color: red;
   display: table; }
   
+div .extra{
+	margin-left: 5%;
+	margin-top: 1em;
+}
+div .show{
+	margin-left: 5%;
+}
 div .actions{
-	margin-top: 2em;
+	margin-right: 2%;
+	margin-top: 0;
+	float: left;
+}
+
+div .new_payroll .actions{
+  margin-top: 1em;
+	margin-left: 6%;
+}
+
+div .edit_payroll .actions{
+  margin-top: 1em;
+	margin-left: 6%;
+}
+
+.paper h1, .paper h2, .paper h3{
+	font-size: 12pt;
+	padding: 0;
+	margin: 0;
+	line-height: 1;
+}
+.paper{
+	margin-top: .25em;
+	margin-bottom: .20em;
+	margin-right: .35em;
+	padding: .5em;
+	padding-right: 1em; 
+	display: inline-block;
+	border: 1px solid black;
+}
+
+
+.left-column{
+	float: left;
+	td{
+		padding-top: .75em;
+		padding-left: .5em;
+		padding-right: .5em;
+		text-align: left;
+	}
+}
+
+.right-column{
+	float: right;
+	td{
+		font-size: 9pt;
+		padding: 0;
+		margin: 0;
+		padding-left: .5em;
+		padding-right: .5em;
+		text-align: left;
+	}
 }

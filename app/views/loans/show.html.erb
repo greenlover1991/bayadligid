@@ -1,10 +1,12 @@
-<p id="notice"><%= notice %></p>
+<div class="show">
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @loan.name %>
-</p>
-
-
-<%= link_to 'Edit', edit_loan_path(@loan) %> |
-<%= link_to 'Back', loans_path %>
+	<p>
+		<b>Name:</b>
+		<%= @loan.name %>
+	</p>
+</div>
+<div class="extra">
+	<%= link_to 'Edit', edit_loan_path(@loan) %> |
+	<%= link_to 'Back', loans_path %>
+</div>

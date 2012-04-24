@@ -1,0 +1,185 @@
+<table style="text-align:center;padding-left: 130px;">
+		<tr>
+			<td>
+				<h2><%= @payroll_detail.payroll.company.name.upcase %></h2>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Payslip (<%= pretty_print_date(@payroll_detail.payroll.date_started) %> - <%= pretty_print_date(@payroll_detail.payroll.date_ended) %>)
+			</td>
+		</tr>
+</table>
+<table>
+	<tr>
+		<td>
+			<table border="1">
+				<tr> 
+					<td> <%= @payroll_detail.employee.last_name %> </td>
+					<td> <%= @payroll_detail.employee.first_name %> </td> 
+					<td> <%= @payroll_detail.employee.middle_name %> </td>
+				</tr>
+				<tr>
+					<td>EARNINGs:</td>
+					<td>Basic</td>
+					<td><%= "%.2f" % @payroll_detail.basic_pay %></td>
+				</tr>
+				<tr>
+					<td rowspan="8">&nbsp</td>
+					<td>Regular OT</td>
+					<td><%= "%.2f" % @payroll_detail.regular_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>Special OT</td>
+					<td><%= "%.2f" % @payroll_detail.special_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>Legal OT</td>
+					<td><%= "%.2f" % @payroll_detail.legal_ot_amount %></td>
+				</tr>
+				<tr>
+					<td>DayOff OT</td>
+					<td><%= "%.2f" % @payroll_detail.work_on_day_off_amount %></td>
+				</tr>
+				<tr>
+					<td>Adjustment</td>
+					<td><%= "%.2f" % @payroll_detail.adjustment %></td>
+				</tr>	
+				<tr>
+					<td>Absent</td>
+					<td><%= "%.2f" % @payroll_detail.absent_amount %></td>
+				</tr>
+				<tr>
+					<td>Tardy</td>
+					<td><%= "%.2f" % @payroll_detail.tardy_amount %></td>
+				</tr>
+				<tr>
+					<td>Gross Pay</td>
+					<td><%= "%.2f" % @payroll_detail.gross_pay %></td>
+				</tr>
+
+				<tr>
+					<td>LESS:</td>
+					<td>Tax Withheld</td>
+					<td><%= "%.2f" % @payroll_detail.with_tax %></td>				
+				</tr>
+				<tr>
+					<td rowspan="13">&nbsp</td>
+					<td>SSS</td>
+					<td><%= "%.2f" % @payroll_detail.sss_contribution %></td>				
+				</tr>
+				<tr>
+					<td>HDMF</td>
+					<td><%= "%.2f" % @payroll_detail.hdmf_contribution %></td>				
+				</tr>
+				<tr>
+					<td>PhilHealth</td>
+					<td><%= "%.2f" % @payroll_detail.philhealth_contribution %></td>				
+				</tr>
+				<tr>
+					<td>SSS Loan</td>
+					<td><%= "%.2f" % @payroll_detail.sss_loan %></td>				
+				</tr>			
+				<tr>
+					<td>HDMF Loan</td>
+					<td><%= "%.2f" % @payroll_detail.hdmf_loan %></td>				
+				</tr>			
+				<tr>
+					<td>PhilHealth Loan</td>
+					<td><%= "%.2f" % @payroll_detail.philhealth_loan %></td>				
+				</tr>					
+				<tr>
+					<td>Salary Loan</td>
+					<td><%= "%.2f" % @payroll_detail.salary_loan %></td>				
+				</tr>			
+				<tr>
+					<td>Calamity Loan</td>
+					<td><%= "%.2f" % @payroll_detail.calamity_loan %></td>				
+				</tr>	
+				<tr>
+					<td>Losses</td>
+					<td><%= "%.2f" % @payroll_detail.losses %></td>				
+				</tr>				
+				<tr>
+					<td>Cash Advance</td>
+					<td><%= "%.2f" % @payroll_detail.cash_advance %></td>				
+				</tr>				
+				<tr>
+					<td>Other Deduction</td>
+					<td><%= "%.2f" % @payroll_detail.other_deduction %></td>				
+				</tr>
+				<tr>
+					<td>Total Deduction</td>
+					<td><%= "%.2f" % @payroll_detail.total_deduction %></td>				
+				</tr>								
+
+				<tr>
+					<td>Net Pay</td>
+					<td><%= "%.2f" % @payroll_detail.net_pay %></td>				
+				</tr>				
+			</table>
+		</td>
+		<td>
+			<table style="text-align: center;">
+				<tr>
+					<td colspan="7"><%= @payroll_detail.payroll.company.name.upcase %></td>
+				</tr>
+
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+												
+																												
+				<tr>
+					<td colspan="7">
+						I hereby acknowledge receipt of my
+					</td>
+				</tr>
+				<tr>
+					<td colspan="7">
+						salary stated herein for the period 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="7">
+						<%= pretty_print_date(@payroll_detail.payroll.date_started) %> to <%= pretty_print_date(@payroll_detail.payroll.date_ended) %>.
+					</td>
+				</tr>
+				
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+				
+				<tr>
+					<td colspan="7">
+						<p>
+							Net Pay: <%= "%.2f" % @payroll_detail.net_pay %>
+						</p>
+					</td>
+				</tr>
+			
+				<tr><td colspan="7">&nbsp</td></tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+
+				
+				<tr>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
+					<td colspan="3"> _________________________________________________________________</td>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
+				</tr>
+				<tr>
+					<td>&nbsp</td>
+					<td>&nbsp</td>
+					<td><%= @payroll_detail.employee.last_name %></td>
+					<td><%= @payroll_detail.employee.first_name %></td>
+					<td><%= @payroll_detail.employee.middle_name %></td>					
+					<td>&nbsp</td>
+					<td>&nbsp</td>
+				</tr>
+				<tr><td colspan="7">&nbsp</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>

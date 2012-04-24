@@ -1,6 +1,6 @@
-<h1>Listing applied_loans</h1>
+<h1>Listing applied loans</h1>
 
-<table>
+<table border="1">
   <tr>
     
     <th>Loan</th>
@@ -10,17 +10,15 @@
     <th>Amount per interval</th>
     <th>Original amount</th>
     <th>Remaining balance</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"></th>
   </tr>
 
 <% @applied_loans.each do |applied_loan| %>
   <tr>
    
     <td><%= applied_loan.loan.name %></td>
-    <td><%= applied_loan.date_started %></td>
-    <td><%= applied_loan.date_ended %></td>
+    <td><%= pretty_print_date(applied_loan.date_started) %></td>
+    <td><%= pretty_print_date(applied_loan.date_ended) %></td>
     <td><%= applied_loan.interval_type %></td>
     <td><%= applied_loan.amount_per_interval %></td>
     <td><%= applied_loan.original_amount %></td>
@@ -33,5 +31,7 @@
 </table>
 
 <br />
-
-<%= link_to 'New Applied loan', new_employee_applied_loan_path(params[:employee_id]) %>
+<div class="extra">
+	<%= link_to 'New Applied loan', new_employee_applied_loan_path(params[:employee_id]) %> |
+	<%= link_to 'Back', employee_path(params[:employee_id])%>
+</div>

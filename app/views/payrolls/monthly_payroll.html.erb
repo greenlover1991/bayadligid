@@ -32,8 +32,10 @@
 		<th rowspan="2">HDMF Loan</th>
 		<th rowspan="2">Salary Loan</th>
 		<th rowspan="2">Calamity Loan</th>
+		<th rowspan="2">Cash Advance</th>
+		<th rowspan="2">Losses</th>
+		<th rowspan="2">Other Deduction</th>	
 		<th rowspan="2">With Tax</th>
-		<th rowspan="2">Other Deduction</th>
 		<th rowspan="2">Net Pay</th>
 	</tr>
 	<tr>
@@ -47,8 +49,8 @@
 		<th>Amount</th>
 	</tr>
 	<% cur_branch_id = -1 %>
-	<% sum = Array.new(22,0) %>
-	<% total_sum = Array.new(22,0) %>
+	<% sum = Array.new(24,0) %>
+	<% total_sum = Array.new(24,0) %>
 	<% i = 0 %>
 	<% last_branch_name = "" %>
 	<% @payroll_details.each do |pd| %>
@@ -87,6 +89,8 @@
 						<td><%= "%.2f" % sum[19] %></td>
 						<td><%= "%.2f" % sum[20] %></td>
 						<td><%= "%.2f" % sum[21] %></td>
+						<td><%= "%.2f" % sum[22] %></td>
+						<td><%= "%.2f" % sum[23] %></td>
 
 					</tr>
 				<% end %>
@@ -99,7 +103,7 @@
 				<% sum.fill(0) %>
 				<% cur_branch_id = pd.employee.branch_id %>
 				<tr>
-					<td colspan="23">
+					<td colspan="25">
 						<b><%= pd.employee.branch.name %></b>
 						<% last_branch_name = pd.employee.branch.name %>
 					</td>
@@ -136,12 +140,13 @@
 			<td><%= "%.2f" % pd.hdmf_loan %><% sum[16] += pd.hdmf_loan %></td>
 			<td><%= "%.2f" % pd.salary_loan %><% sum[17] += pd.salary_loan %></td>
 			<td><%= "%.2f" % pd.calamity_loan %><% sum[18] += pd.calamity_loan %></td>
-
-			<td><%= "%.2f" % pd.with_tax %><% sum[19] += pd.with_tax %></td>
 			
-			<td><%= "%.2f" % pd.other_deduction %><% sum[20] += pd.other_deduction %></td>
+			<td><%= "%.2f" % pd.cash_advance %><% sum[19] += pd.cash_advance %></td>
+			<td><%= "%.2f" % pd.losses %><% sum[20] += pd.losses %></td>
+			<td><%= "%.2f" % pd.other_deduction %><% sum[21] += pd.other_deduction %></td>
+			<td><%= "%.2f" % pd.with_tax %><% sum[22] += pd.with_tax %></td>
+			<td><%= "%.2f" % pd.net_pay %><% sum[23] += pd.net_pay %></td>
 			
-			<td><%= "%.2f" % pd.net_pay %><% sum[21] += pd.net_pay %></td>
 		</tr>
 	<% end %>	
 	<tr	onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
@@ -176,7 +181,8 @@
 		<td><%= "%.2f" % sum[19] %></td>
 		<td><%= "%.2f" % sum[20] %></td>
 		<td><%= "%.2f" % sum[21] %></td>
-
+		<td><%= "%.2f" % sum[22] %></td>
+		<td><%= "%.2f" % sum[23] %></td>
 		<% count = 0 %>
 		<% while count < sum.length %>
 			<% total_sum[count] += sum[count] %>
@@ -216,11 +222,15 @@
 		<td><%= "%.2f" % total_sum[19] %></td>
 		<td><%= "%.2f" % total_sum[20] %></td>
 		<td><%= "%.2f" % total_sum[21] %></td>
+		<td><%= "%.2f" % total_sum[22] %></td>
+		<td><%= "%.2f" % total_sum[23] %></td>
 
 	</tr>
 </table>
 
-<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
-<%= link_to 'Back', '/' %>
-
+<div class="extra">
+	<input type="button" value="Print" id="btnPrint" />
+	<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
+	<%= link_to 'Back', '/' %>
+</div>
 

@@ -140,6 +140,10 @@ class PayrollsController < ApplicationController
   	@payroll_detail = PayrollDetail.find_by_payroll_id_and_employee_id(params[:id], params[:employee_id])
   end
   
+  def two_by_two
+  	@payroll_details = PayrollDetail.find_all_by_payroll_id(params[:id])
+  end
+  
   private
 		def init_report
 			@payroll = Payroll.find_by_id_and_company_id(params[:id],params[:company_id])

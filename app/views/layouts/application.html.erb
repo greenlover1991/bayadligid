@@ -4,18 +4,89 @@
   <title>Bayadligid</title>
   <style type="text/css" media="print">
   	@media print{
-  		header{
-  			color: white;
-  			margin: 0;
-  			padding: 0;
-  			font: 0;
-  			display: hidden;
-  			visibility: none;
+  		header, .extra, .actions{
+  			display: none;
   		}
   		a {
   			text-decoration: none;
   			color: black;
   		}
+  		body{
+  			margin: 0;
+  			padding: 0;
+  		}
+  		.container{
+  			width: 100%;
+  			float: none;
+  		}
+  		p, td, th{
+  			font-size: 10pt;
+  			line-height: 1;
+  		}
+  		h1, h2, h3{
+  			font-size: 12pt;
+  			margin:0;
+  			padding: 0;
+  			line-height: 1;
+  		}
+  		table{
+  			border: 1px solid black;
+  		}
+  		
+  		/*
+			.wholepaper{
+				margin: 0;
+				margin-top: .5em;
+				padding: 0;
+				width: 400px
+				height: 600px;
+				font-size: 8pt;
+				h1, h2, h3, p, td{
+					font-size: 6pt;
+					font-weight: normal;
+					line-height: 1;
+				}
+			}
+			*/
+			.paper{
+				margin-top: .25em;
+				margin-bottom: .20em;
+				margin-right: .35em;
+				padding: .5em;
+				padding-right: 1em; 
+				display: inline-block;
+				border: 1px solid black;
+				table{
+				  border: none;
+			 	}
+			}
+
+
+			.left-column{
+				float: left;
+				td{
+					padding-top: .75em;
+					padding-left: .5em;
+					padding-right: .5em;
+					text-align: left;
+				}
+			}
+
+			.right-column{
+				float: right;
+				td{
+					font-size: 9pt;
+					padding: 0;
+					margin: 0;
+					padding-left: .5em;
+					padding-right: .5em;
+					text-align: left;
+				}
+			}
+			.page-break{
+				display: block;
+				page-break-before: always;
+			}
   	}
   </style>
   <%= stylesheet_link_tag "application", media: "screen" %>
@@ -29,6 +100,18 @@
 	</div>
 	<%= render 'application/shim' %>
   <%= javascript_include_tag "application" %>
+  <script type="text/javascript" language="javascript" charset="utf-8">
+  // <![CDATA[
+  	btnPrint = document.getElementById("btnPrint");
+  	if(btnPrint)
+  		btnPrint.addEventListener('click', doPrint, false);
+  
+  	function doPrint(){
+  		window.print();
+  		return false;
+  	}
+  // ]]>
+  </script>
 </body>
 </html>
 
