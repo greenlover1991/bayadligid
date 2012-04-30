@@ -1,7 +1,7 @@
-<h1>New applied_loan</h1>
+<h1>New loan for <%= employee_full_name(params[:employee_id]) %></h1>
 
 <%= render 'form' %>
 
 <div class="extra">
-	<%= link_to 'Back', employee_applied_loans_path(params[:employee_id]) %>
+	<%= link_to 'Back', employee_path(params[:employee_id]) %>
 </div>

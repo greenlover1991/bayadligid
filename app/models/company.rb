@@ -30,4 +30,8 @@ class Company < ActiveRecord::Base
 		employees.count
 	end
 	
+	def latest_payroll
+		Payroll.where(:company_id=>self.id).order(:date_started).last
+  end
+	
 end

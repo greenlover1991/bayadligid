@@ -3,7 +3,7 @@
 <table border="1">
 	<tr>
 		<th> Company </th>
-		<th colspan="3"> Payroll</th>
+		<th colspan="4"> Payroll</th>
 	</tr>
 	<% @companies.each do |c| %>
 		<tr>
@@ -11,6 +11,7 @@
 			<td> <%= link_to 'Input Daily Payroll',new_company_payroll_path(c.id) + "?payroll_type=Daily" %></td>
 			<td> <%= link_to 'Input Monthly Payroll',new_company_payroll_path(c.id) + "?payroll_type=Monthly" %></td>
 			<td> <%= link_to 'List Old Payrolls', company_payrolls_path(c.id) %></td>
+			<td> <%= link_to_latest_payroll(c) %></td>
 		</tr>
 	<% end %>
 

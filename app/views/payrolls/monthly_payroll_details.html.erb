@@ -5,7 +5,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> DETAILS of OVERTIME - Monthly Rate</td>
+			<td> DETAILS of OVERTIME - Monthly Rate [<%= link_to 'View non-detailed', monthly_payroll_company_payroll_path(params[:company_id], @payroll)%>]</td>
 		</tr>
 		<tr>
 			<td>
@@ -77,7 +77,7 @@
 			<% end%>
 		<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
 			<td>
-					<%= link_to pd.employee.complete_name, payslip_company_payroll_path(params[:company_id], params[:id]) + "?employee_id=#{pd.employee_id}" %>
+					<%= link_to pd.employee.complete_name, pd.employee %>
 			</td>
 			<td><%= "%.2f" % (pd.half_monthly_rate*2) %><% sum[0] += (pd.half_monthly_rate*2) %></td>
 			<td><%= "%.2f" % pd.hours_regular_overtime %><% sum[1] += pd.hours_regular_overtime %></td>
@@ -135,7 +135,7 @@
 <div class="extra">
 	<input type="button" value="Print" id="btnPrint" />
 	<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
-	<%= link_to 'Back', '/' %>
+	<%= link_to 'Back', company_payrolls_path(params[:company_id]) %>
 </div>
 
 

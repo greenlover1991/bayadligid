@@ -1,4 +1,5 @@
-<div class="show">
+
+<div class="show left-side-bar">
 	<p id="notice"><%= notice %></p>
 
 	<p>
@@ -91,8 +92,13 @@
 		<%= @employee.status %>
 	</p>
 </div>
-<div class="extra">
-	<%= link_to 'Applied Loans', employee_applied_loans_path(@employee) %> |
+
+<div class="right-side-bar">
+	<%= render 'applied_loans/index' %>
+</div>
+
+<div class="extra" style="clear:left;">
+  <a href="<%= new_employee_applied_loan_path(@employee) %>"><input type="button" value="Apply New Loan" /></a>
 	<%= link_to 'Edit', edit_employee_path(@employee) %> |
 	<%= link_to 'Back', employees_path %>
 </div>

@@ -76,7 +76,7 @@ class AppliedLoansController < ApplicationController
     @applied_loan.destroy
 
     respond_to do |format|
-      format.html { redirect_to employee_applied_loans_url(params[:employee_id]) }
+      format.html { redirect_to employee_url(params[:employee_id]) }
       format.json { head :ok }
     end
   end
