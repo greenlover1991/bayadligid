@@ -3,5 +3,5 @@
 <%= render 'form' %>
 
 <div class="extra">
-	<%= link_to 'Back', '/' %>
+	<%= link_to 'Back', (@payroll.payroll_type=="Monthly") ? monthly_payroll_company_payroll_path(@company, @payroll): daily_payroll_company_payroll_path(@company, @payroll) %>
 </div>

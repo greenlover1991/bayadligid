@@ -138,6 +138,28 @@
   		window.print();
   		return false;
   	}
+
+	frmPayroll = document.getElementsByName("payroll_form");
+	
+	if(frmPayroll && frmPayroll.length > 0){
+		for(i=0;i<frmPayroll[0].elements.length;i++){
+			element = frmPayroll[0].elements[i];
+			element.onkeypress = disableEnter;
+		}
+	}
+
+
+
+	function disableEnter(){
+		if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13))
+		{
+			event.keyCode=9;
+			
+			event.which = 9;
+			return 9;
+		}
+		alert(event.which);
+	}
   // ]]>
   </script>
 </body>

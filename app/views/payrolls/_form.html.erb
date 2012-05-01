@@ -1,4 +1,4 @@
-<%= form_for([@company,@payroll]) do |f| %>
+<%= form_for([@company,@payroll], html: {:name=>"payroll_form"}) do |f| %>
   <% if @payroll.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
