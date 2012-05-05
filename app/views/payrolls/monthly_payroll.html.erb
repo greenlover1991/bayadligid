@@ -230,7 +230,9 @@
 
 <div class="extra">
 	<input type="button" value="Print" id="btnPrint" />
+	<%= link_to 'Generate Payslips', two_by_two_company_payroll_path(params[:company_id], @payroll) %> |
 	<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
+	<%= link_to 'View Details', monthly_payroll_details_company_payroll_path(params[:company_id], @payroll)%> |
 	<%= link_to 'Back', company_payrolls_path(params[:company_id]) %>
 </div>
 

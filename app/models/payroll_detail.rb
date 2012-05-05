@@ -101,11 +101,16 @@ class PayrollDetail < ActiveRecord::Base
   end
   
   def tardy_amount
-  	(1.0 - ((480.0 - minutes_tardy) / 480) ) * @rate
+    if(self.payroll.payroll_type == "Monthly")
+      return minutes_tardy * 2.0;
+    else
+      return @rate/480.0 * minutes_tardy
+    end
+  	#(1.0 - ((480.0 - minutes_tardy) / 480) ) * @rate
   end
   
   def gross_pay
-  	basic_pay + total_overtime_amount + work_on_day_off_amount + adjustment - absent_amount - tardy_amount
+  	basic_pay + total_overtime_amount + work_on_day_off_amount + legal_holiday_amount + adjustment - absent_amount - tardy_amount
   end
   
   def total_deduction

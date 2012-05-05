@@ -42,32 +42,29 @@
 			}
 			.paper{
 				margin:0;
-				margin-right: .25em;
 				margin-bottom: .25em;
-				padding: .25em;
 				display: inline-block;
+				width: 48.2%;
 				border: 1px solid black;
-				width: 45%;
 			}
 
 
 			.left-column{
 				float: left;
-				margin-left: .5em;
-				margin-top: .25em;
-				
+				margin-top: .1em;
+				margin-right: .1em;
+				padding-top: .5em;
 			}
 			
 			.left-column table{
-				padding-left: .25em;
-				padding-right: .25em;
+				padding-left: .1em;
+				padding-right: .1em;
 				text-align: left;
 			}
 
 			.right-column{
-				float: right;
-				margin-right: .3em;
-				margin-top: .25em;
+				float: right
+				margin-top: .1em;
 				
 			}
 			
@@ -75,8 +72,6 @@
 				font-size: 9pt;
 				padding: 0;
 				margin: 0;
-				padding-left: .25em;
-				padding-right: .25em;
 				text-align: left;
 			}
 
@@ -139,27 +134,51 @@
   		return false;
   	}
 
-	frmPayroll = document.getElementsByName("payroll_form");
+		frmPayroll = document.getElementsByName("payroll_form");
+		var total = 0
 	
-	if(frmPayroll && frmPayroll.length > 0){
-		for(i=0;i<frmPayroll[0].elements.length;i++){
-			element = frmPayroll[0].elements[i];
-			element.onkeypress = disableEnter;
+		if(frmPayroll && frmPayroll.length > 0){
+			injectEvents();
 		}
-	}
 
+    function injectEvents(){
+      elems = frmPayroll[0].elements;
+      for(i = 0;i<elems.length;i++){
+        elem = elems[i];
+        if(elem.type && (elem.type == "text" || elem.type == "number")) {
+          elem.title = "index_" + total;
+          elem.onkeypress = disableEnter;  
+          total++;
+        }
+        
+      }
+      
+    }
 
+		function disableEnter(event){
+		  if(event){
+		    evt = event;
+		    elemName = evt.target.title; 
+		  }
+		  else{
+		    evt = window.event;
+		    elemName = evt.srcElement.title;
+		  }
+		  index = (parseInt(elemName.split('_')[1])+1) % total;
+			if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)) {
+			  elems = frmPayroll[0].elements;
+			  for(i=0; i<elems.length; i++){
+			    if(elems[i].title == "index_" + index){
+			      elems[i].focus();
+			      return false;
+			    }
+			  }
+			  return false;
+			}
 
-	function disableEnter(){
-		if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13))
-		{
-			event.keyCode=9;
-			
-			event.which = 9;
-			return 9;
 		}
-		alert(event.which);
-	}
+		
+		
   // ]]>
   </script>
 </body>
