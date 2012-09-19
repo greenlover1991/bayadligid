@@ -1,4 +1,16 @@
 Bayadligid::Application.routes.draw do
+  get "applied_loan_details/index"
+
+  get "applied_loan_details/new"
+
+  get "applied_loan_details/edit"
+
+  get "applied_loan_details/create"
+
+  get "applied_loan_details/update"
+
+  get "applied_loan_details/destroy"
+
   resources :companies do
   	resources :branches
   	resources :payrolls do
@@ -18,7 +30,9 @@ Bayadligid::Application.routes.draw do
 
   resources :loans
   resources :employees do
-	resources :applied_loans 
+	  resources :applied_loans do
+	    resources :applied_loan_details
+	  end
   end
 
   resources :holidays do

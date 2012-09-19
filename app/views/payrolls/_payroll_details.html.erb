@@ -7,25 +7,27 @@
 				<% colspan = 14 %>
 		<% else %>
 				<th>Daily Rate</th>
-				<th>Work Days</th>
+				<th><a onclick="editMultiple('days_worked', 'Work Days')">Work Days</a></th>
 				<% colspan = 15 %>
 		<% end %>
-		<th>OT(hours)</th>
-		<th>Special OT(hours)</th>
-		<th>Legal OT(hours)</th>
-		<th>Legal Holidays(days)</th>
-		<th>Work on day-off OT(hours)</th>
-		<th>Days Absent(days)</th>
-		<th>Minutes Tardy(minutes)</th>
-		<th>Adjustment</th>
-		<th>SSS</th>
-		<th>PhilHealth</th>
-		<th>HDMF</th>
-		<th>Withholding Tax</th>
+		<th><a onclick="editMultiple('hours_regular_overtime', 'OT (hours)')">OT(hours)</a></th>
+		<th><a onclick="editMultiple('hours_special_overtime', 'Special OT(hours)')">Special OT(hours)</th>
+		<th><a onclick="editMultiple('hours_legal_overtime', 'Legal OT(hours)')">Legal OT(hours)</th>
+		<th><a onclick="editMultiple('days_legal_holiday', 'Legal Holidays(days)')">Legal Holidays(days)</th>
+		<th><a onclick="editMultiple('hours_day_off_overtime', 'Work on day-off OT(hours)')">Work on day-off OT(hours)</th>
+		<th><a onclick="editMultiple('days_absent', 'Days Absent(days)')">Days Absent(days)</th>
+		<th><a onclick="editMultiple('minutes_tardy', 'Minutes Tardy(minutes)')">Minutes Tardy(minutes)</th>
+		<th><a onclick="editMultiple('adjustment', 'Adjustment')">Adjustment</th>
+		<th><a onclick="editMultiple('sss_contribution', 'SSS')">SSS</th>
+		<th><a onclick="editMultiple('philhealth_contribution', 'PhilHealth')">PhilHealth</th>
+		<th><a onclick="editMultiple('hdmf_contribution', 'HDMF')">HDMF</th>
+		<th><a onclick="editMultiple('with_tax', 'Withholding Tax')">Withholding Tax</th>
 	</tr>
 	<% cur_branch_id = -1 %>
+	<% emps = [] %>
 	<% if @payroll.new_record? %>
 		<% @company_employees.each do |emp| %>
+		  <% emps << emp.complete_name %>
 			<% if cur_branch_id != emp.branch_id %>
 				<% cur_branch_id = emp.branch_id %>
 				<tr>
@@ -56,6 +58,7 @@
 		<% end %>
 	<% else %>
 		<% @payroll_details.each do |pd| %>
+		  <% emps << pd.employee.complete_name %>
 			<% if cur_branch_id != pd.employee.branch_id %>
 				<% cur_branch_id = pd.employee.branch_id %>
 				<tr>
@@ -88,3 +91,15 @@
 		<% end %>	
 	<% end %>
 </table>
+
+<div id="frmMulti" title="Select multiple employees for input: ">
+  <% for i in 0..emps.size-1 %>
+  <% emp = emps[i] %>
+    <label>
+      <input type="checkbox" name="chkEmps" id="chkEmps_<%=i%>" value="<%=i%>" style="display:inline"/>    
+      <%= emp %>
+    </label>
+  <% end %>
+  Value: <input type="text" id="txtMulti" />
+  <input type="button" value="Okay" onclick="doMultiInput()"/>
+</div>

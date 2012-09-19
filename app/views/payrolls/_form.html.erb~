@@ -1,0 +1,45 @@
+<%= form_for([@company,@payroll], html: {:name=>"payroll_form"}) do |f| %>
+  <% if @payroll.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
+
+      <ul>
+      <% @payroll.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<table>
+		<tr>
+			<td>
+					<%= f.hidden_field :company_id, :value=>params[:company_id] %>
+				  <div class="field">
+						<%= f.label :date_started, "From:" %>
+						<%= f.date_select :date_started, {:default => get_default_start_date}, {:class=>"dateselect"} %>
+				  </div>
+			</td>
+			<td>
+				  <div class="field">
+						<%= f.label :date_ended, "To:" %>
+						<%= f.date_select :date_ended, {:default => get_default_end_date}, {:class=>"dateselect"} %>
+						<%= f.hidden_field :payroll_type, :value=>@payroll.payroll_type %>
+					</div>
+			</td>
+		</tr>
+  </table>
+  
+  <h2>Payroll Details</h2>
+  <%= render :partial=> 'payroll_details' %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+  <div id="frmMulti" title="Select multiple employees for input">
+    <p>
+    <br>
+    <input type="button" value="Okay" onclick="doMultiInput()"/>
+  </div>
+<% end %>

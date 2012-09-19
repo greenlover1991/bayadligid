@@ -1,0 +1,143 @@
+<table style="text-align:center;">
+		<tr>
+			<td>
+				<h2><%= @payroll.company.name.upcase %></h2>
+			</td>
+		</tr>
+		<tr>
+			<td> DETAILS of OVERTIME - Monthly Rate [<%= link_to 'View non-detailed', monthly_payroll_company_payroll_path(params[:company_id], @payroll)%>]</td>
+		</tr>
+		<tr>
+			<td>
+				For the period of <%= pretty_print_date(@payroll.date_started) %> to <%= pretty_print_date(@payroll.date_ended) %>
+			</td>
+		</tr>
+</table>
+
+<table border="1">
+	<tr>
+		<th rowspan="2">NAME OF EMPLOYEE</th>
+		<th rowspan="2">Monthly Rate</th>
+		<th colspan="2">REGULAR</th>
+		<th colspan="2">SPECIAL</th>
+		<th colspan="2">LEGAL</th>
+		<th colspan="2">TOTAL</th>
+	</tr>
+	<tr>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+		<th>Hours</th>
+		<th>Amount</th>
+	</tr>
+	<% cur_branch_id = -1 %>
+	<% sum = Array.new(9,0) %>
+	<% total_sum = Array.new(9,0) %>
+	<% i = 0 %>
+	<% last_branch_name = "" %>
+	<% @payroll_details.each do |pd| %>
+
+			<% if cur_branch_id != pd.employee.branch_id %>
+				<% if i>0 %>
+					<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
+						<td colspan="2">
+							Total <%= last_branch_name %>
+						</td>
+						
+						<td><%= "%.2f" % sum[1] %></td>
+						<td><%= "%.2f" % sum[2] %></td>
+						<td><%= "%.2f" % sum[3] %></td>
+						<td><%= "%.2f" % sum[4] %></td>			
+			
+						<td><%= "%.2f" % sum[5] %></td>
+						<td><%= "%.2f" % sum[6] %></td>
+			
+						<td><%= "%.2f" % sum[7] %></td>
+						<td><%= "%.2f" % sum[8] %></td>
+			
+					</tr>
+				<% end %>
+				<% i += 1 %>
+				<% count = 0 %>
+				<% while count < sum.length %>
+					<% total_sum[count] += sum[count] %>
+					<%	count += 1 %>
+				<% end %>
+				<% sum.fill(0) %>
+				<% cur_branch_id = pd.employee.branch_id %>
+				<tr>
+					<td colspan="10">
+						<b><%= pd.employee.branch.name %></b>
+						<% last_branch_name = pd.employee.branch.name %>
+					</td>
+				</tr>
+			<% end%>
+		<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
+			<td>
+					<%= link_to pd.employee.complete_name, pd.employee %>
+			</td>
+			<td><%= "%.2f" % (pd.half_monthly_rate*2) %><% sum[0] += (pd.half_monthly_rate*2) %></td>
+			<td><%= "%.2f" % pd.hours_regular_overtime %><% sum[1] += pd.hours_regular_overtime %></td>
+			<td><%= "%.2f" % pd.regular_ot_amount %><% sum[2] += pd.regular_ot_amount %></td>
+			<td><%= "%.2f" % pd.hours_special_overtime %><% sum[3] += pd.hours_special_overtime %></td>
+			<td><%= "%.2f" % pd.special_ot_amount %><% sum[4] += pd.special_ot_amount %></td>			
+			<td><%= "%.2f" % pd.hours_legal_overtime %><% sum[5] += pd.hours_legal_overtime %></td>
+			<td><%= "%.2f" % pd.legal_ot_amount %><% sum[6] += pd.legal_ot_amount %></td>
+			<td><%= "%.2f" % pd.total_overtime_hours %><% sum[7] += pd.total_overtime_hours %></td>
+			<td><%= "%.2f" % pd.total_overtime_amount %><% sum[8] += pd.total_overtime_amount %></td>
+		</tr>
+	<% end %>	
+	<tr onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
+		<td colspan="2">
+			Total <%= last_branch_name %>
+		</td>
+		
+		<td><%= "%.2f" % sum[1] %></td>
+		<td><%= "%.2f" % sum[2] %></td>
+		<td><%= "%.2f" % sum[3] %></td>
+		<td><%= "%.2f" % sum[4] %></td>			
+
+		<td><%= "%.2f" % sum[5] %></td>
+		<td><%= "%.2f" % sum[6] %></td>
+
+		<td><%= "%.2f" % sum[7] %></td>
+		<td><%= "%.2f" % sum[8] %></td>
+
+		<% count = 0 %>
+		<% while count < sum.length %>
+			<% total_sum[count] += sum[count] %>
+			<%	count += 1 %>
+		<% end %>
+	</tr>	<%= link_to 'Generate Payslips', two_by_two_company_payroll_path(params[:company_id], @payroll) %>
+
+	<tr	onMouseOver="this.className='highlight'" onMouseOut="this.className='normal'">
+		<td colspan="2">
+			Grand Total
+		</td>
+		<td><%= "%.2f" % total_sum[1] %></td>
+		<td><%= "%.2f" % total_sum[2] %></td>
+		<td><%= "%.2f" % total_sum[3] %></td>
+		<td><%= "%.2f" % total_sum[4] %></td>			
+
+		<td><%= "%.2f" % total_sum[5] %></td>
+		<td><%= "%.2f" % total_sum[6] %></td>
+
+		<td><%= "%.2f" % total_sum[7] %></td>
+		<td><%= "%.2f" % total_sum[8] %></td>
+
+	
+	</tr>
+</table>
+
+<div class="extra">
+	<input type="button" value="Print" id="btnPrint" />
+	<%= link_to 'Generate Payslips', two_by_two_company_payroll_path(params[:company_id], @payroll) %> |
+	<%= link_to 'Edit', edit_company_payroll_path(@payroll.company, @payroll) %> |
+	<%= link_to 'View non-detailed', monthly_payroll_company_payroll_path(params[:company_id], @payroll)%> |
+	<%= link_to 'Back', company_payrolls_path(params[:company_id]) %>
+</div>
+
+

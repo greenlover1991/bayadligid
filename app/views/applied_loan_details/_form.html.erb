@@ -1,0 +1,30 @@
+<%= form_for([@applied_loan_detail.applied_loan.employee,@applied_loan_detail.applied_loan,@applied_loan_detail]) do |f| %>
+  <% if @applied_loan_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@applied_loan_detail.errors.count, "error") %> prohibited this applied_loan_detail from being saved:</h2>
+
+      <ul>
+      <% @applied_loan_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= f.hidden_field :applied_loan_id, :value=>params[:applied_loan_id] %>
+  
+  <div class="field">
+    <%= f.label :amount, "Amount" %>
+    <%= f.number_field :amount, :step=>0.01 %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :date_applied %>
+    <%= f.date_select :date_applied %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

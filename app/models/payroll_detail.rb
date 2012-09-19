@@ -35,7 +35,7 @@ class PayrollDetail < ActiveRecord::Base
   belongs_to :employee
   
   @@REGULAR_OT_RATE = 1.25
-  @@SPECIAL_OT_RATE = 1.30
+  @@SPECIAL_OT_RATE = 0.30
   @@LEGAL_OT_RATE = 1.00
   @@DAYOFF_OT_RATE = 1.00
   
@@ -76,15 +76,18 @@ class PayrollDetail < ActiveRecord::Base
   end
   
   def special_ot_amount
-  	hours_special_overtime / 8 * @rate * @@SPECIAL_OT_RATE
+  	#hours_special_overtime / 8 * @rate * @@SPECIAL_OT_RATE
+  	hours_special_overtime / 8 * self.employee.rate / 26 * @@SPECIAL_OT_RATE
   end
   
   def legal_ot_amount
-  	hours_legal_overtime / 8 * @rate * @@LEGAL_OT_RATE
+  	#hours_legal_overtime / 8 * @rate * @@LEGAL_OT_RATE
+  	hours_legal_overtime / 8 * self.employee.rate / 26 * @@LEGAL_OT_RATE
   end
   
   def work_on_day_off_amount
-  	hours_day_off_overtime / 8 * @rate * @@DAYOFF_OT_RATE
+  	#hours_day_off_overtime / 8 * @rate * @@DAYOFF_OT_RATE
+  	hours_legal_overtime / 8 * self.employee.rate / 26 * @@DAYOFF_OT_RATE
   end
   
   

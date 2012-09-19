@@ -1,9 +1,11 @@
-
-<h3>Breakdown:</h3>
+<% ald = @applied_loan.applied_loan_details.order(:date_applied) %>
+<h3>Breakdown (P<%=ald.sum(:amount)%>): <small>(<%= link_to 'Add a breakdown/detail', new_employee_applied_loan_applied_loan_detail_path(@applied_loan.employee_id, @applied_loan)%>)</small></h3>
 <ul>
-	<% @applied_loan.applied_loan_details.each do |details| %>
+	<% ald.each do |details| %>
 			<li>
-				<%= details.date_applied %> - <%= details.amount %>
+				<%= details.date_applied %> - <%= details.amount %> |
+				 <%= link_to 'Edit', edit_employee_applied_loan_applied_loan_detail_path(@applied_loan.employee_id, @applied_loan, details) %> |
+         <%= link_to 'Delete', [@applied_loan.employee, @applied_loan, details], confirm: 'Are you sure?', method: :delete %>
 			</li>
 	<% end %>
 </ul>
