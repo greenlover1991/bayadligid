@@ -4,6 +4,8 @@ ruby "1.9.2"
 gem 'rails', '3.1.1'
 gem 'bootstrap-sass'
 
+gem "puma"
+
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
